@@ -1,0 +1,54 @@
+{
+  "expo": {
+    "name": "AI Mock Interview Coach",
+    "slug": "ai-mock-interview-coach",
+    "scheme": "aimic",
+    "owner": "surajshettyexpo",
+    "version": "0.1.0",
+    "orientation": "portrait",
+
+    "icon": "./assets/icon.png",
+
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+
+    "assetBundlePatterns": ["**/*"],
+
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+
+    "ios": {
+      "supportsTablet": true
+    },
+
+    "android": {
+      "package": "com.surajshettyexpo.aimockinterviewcoach",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon-foreground.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+
+    "web": {
+      "bundler": "metro",
+      "output": "server",
+      "favicon": "./assets/favicon.png"
+    },
+
+    "plugins": [
+      "expo-router",
+      "expo-asset"
+    ],
+
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "2df1a5da-55a0-4342-9def-505486ab8f83"
+      }
+    }
+  }
+}
