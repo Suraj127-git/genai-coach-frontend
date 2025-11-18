@@ -6,11 +6,9 @@ import NetInfo from '@react-native-community/netinfo'
 import Constants from 'expo-constants'
 import { NativeModulesProxy } from 'expo-modules-core'
 import { useEffect, useState } from 'react'
-import Animated, { FadeIn } from 'react-native-reanimated'
-import { ApplicationProvider, Layout as KLayout, Text, Button, Spinner } from '@ui-kitten/components'
-import * as eva from '@eva-design/eva'
-import { IconRegistry } from '@ui-kitten/components'
-import { EvaIconsPack } from '@ui-kitten/eva-icons'
+// removed Animated usage
+import { GluestackUIProvider, Box, Text, Button, ButtonText, Spinner } from '@gluestack-ui/themed'
+import { config } from '@gluestack-ui/config'
 import { Linking } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -67,82 +65,62 @@ export default function Layout() {
 
   return (
     <>
-      <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider {...eva} theme={{
-        ...eva.light,
-        'color-primary-100': '#DCEEFB',
-        'color-primary-200': '#B6E0FE',
-        'color-primary-300': '#84C5F4',
-        'color-primary-400': '#62B0E8',
-        'color-primary-500': '#1D4ED8',
-        'color-primary-600': '#1E40AF',
-        'color-primary-700': '#1E3A8A',
-        'color-primary-800': '#1F2A56',
-        'color-primary-900': '#1A2352',
-        'background-basic-color-1': '#FFFFFF',
-        'background-basic-color-2': '#F1F5F9',
-        'text-basic-color': '#0F172A'
-      }}>
+      <GluestackUIProvider config={config}>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             {!online ? (
-              <Animated.View style={{ flex: 1 }} entering={FadeIn}>
-                <KLayout style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 16 }}>
-                  <Text category='h6'>No Internet Connection</Text>
-                  <Text appearance='hint'>Please connect to the internet to use the app.</Text>
-                  <Button style={{ marginTop: 12 }} onPress={() => NetInfo.fetch().then(s => setOnline(!!s.isConnected))}>Retry</Button>
-                </KLayout>
-              </Animated.View>
+              <Box style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 16 }}>
+                <Text>No Internet Connection</Text>
+                <Text>Please connect to the internet to use the app.</Text>
+                <Button style={{ marginTop: 12 }} onPress={() => NetInfo.fetch().then(s => setOnline(!!s.isConnected))}><ButtonText>Retry</ButtonText></Button>
+              </Box>
             ) : permReady === null ? (
-              <KLayout style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+              <Box style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <Spinner size='large' />
-              </KLayout>
+              </Box>
             ) : !permReady && !allowContinue ? (
-              <Animated.View style={{ flex: 1 }} entering={FadeIn}>
-                <KLayout style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 16 }}>
-                  <Text category='h6'>Permissions Required</Text>
-                  <Text appearance='hint'>Location and media library access are required.</Text>
-                  {Constants.appOwnership === 'expo' ? null : (
-                    <Text appearance='hint'>If permissions fail, rebuild the development client to include native modules.</Text>
-                  )}
-                  {permMsg ? (<Text status='danger'>{permMsg}</Text>) : null}
-                  <Button disabled={requesting} style={{ marginTop: 12 }} onPress={async () => {
-                    try {
-                      setRequesting(true)
-                      const hasLoc = !!(NativeModulesProxy as any).ExpoLocation
-                      const hasMed = !!(NativeModulesProxy as any).ExpoMediaLibrary
-                      if (!hasLoc || !hasMed) { setPermReady(false); setPermMsg('Native modules missing. Rebuild dev client or use Expo Go.'); setRequesting(false); return }
-                      const Location = await import('expo-location')
-                      const MediaLibrary = await import('expo-media-library')
-                      const { status: loc } = await Location.requestForegroundPermissionsAsync()
-                      const { status: med } = await MediaLibrary.requestPermissionsAsync()
-                      const ok = loc === 'granted' && med === 'granted'
-                      setPermReady(ok)
-                      setPermMsg(ok ? null : 'Permissions not granted. You can open system settings to allow access.')
-                    } catch {}
-                    finally { setRequesting(false) }
-                  }}>{requesting ? 'Requesting…' : 'Grant Permissions'}</Button>
-                  <Button appearance='outline' style={{ marginTop: 8 }} onPress={() => Linking.openSettings()}>Open Settings</Button>
-                  <Button appearance='ghost' style={{ marginTop: 8 }} onPress={async () => { await AsyncStorage.setItem('perm_skipped', 'true'); setAllowContinue(true); router.replace('/onboarding/one') }}>Skip for now</Button>
-                </KLayout>
-              </Animated.View>
+              <Box style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 16 }}>
+                <Text>Permissions Required</Text>
+                <Text>Location and media library access are required.</Text>
+                {Constants.appOwnership === 'expo' ? null : (
+                  <Text>If permissions fail, rebuild the development client to include native modules.</Text>
+                )}
+                {permMsg ? (<Text>{permMsg}</Text>) : null}
+                <Button disabled={requesting} style={{ marginTop: 12 }} onPress={async () => {
+                  try {
+                    setRequesting(true)
+                    const hasLoc = !!(NativeModulesProxy as any).ExpoLocation
+                    const hasMed = !!(NativeModulesProxy as any).ExpoMediaLibrary
+                    if (!hasLoc || !hasMed) { setPermReady(false); setPermMsg('Native modules missing. Rebuild dev client or use Expo Go.'); setRequesting(false); return }
+                    const Location = await import('expo-location')
+                    const MediaLibrary = await import('expo-media-library')
+                    const { status: loc } = await Location.requestForegroundPermissionsAsync()
+                    const { status: med } = await MediaLibrary.requestPermissionsAsync()
+                    const ok = loc === 'granted' && med === 'granted'
+                    setPermReady(ok)
+                    setPermMsg(ok ? null : 'Permissions not granted. You can open system settings to allow access.')
+                  } catch {}
+                  finally { setRequesting(false) }
+                }}><ButtonText>{requesting ? 'Requesting…' : 'Grant Permissions'}</ButtonText></Button>
+                <Button style={{ marginTop: 8 }} variant='outline' onPress={() => Linking.openSettings()}><ButtonText>Open Settings</ButtonText></Button>
+                <Button style={{ marginTop: 8 }} variant='link' onPress={async () => { await AsyncStorage.setItem('perm_skipped', 'true'); setAllowContinue(true); router.replace('/onboarding/one') }}><ButtonText>Skip for now</ButtonText></Button>
+              </Box>
             ) : (
               <Stack screenOptions={{
                 headerTintColor: '#0F172A',
                 headerTitleStyle: { color: '#0F172A' },
-                headerBackground: () => {
-                  const hasGrad = !!(NativeModulesProxy as any).ExpoLinearGradient
-                  if (!hasGrad) return <Animated.View style={{ flex: 1, backgroundColor: '#E0F2FE' }} />
-                  const { LinearGradient } = require('expo-linear-gradient')
-                  return <LinearGradient colors={['#E0F2FE', '#FFFFFF']} style={{ flex: 1 }} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} />
-                },
+                headerStyle: { backgroundColor: '#E0F2FE' },
               }}>
                 <Stack.Screen name="index" options={{ title: 'Home' }} />
+                <Stack.Screen name="setup" options={{ title: 'Setup', headerBackTitle: 'Back' }} />
+                <Stack.Screen name="video" options={{ title: 'Video Call', headerBackTitle: 'Back' }} />
                 <Stack.Screen name="(auth)/login" options={{ title: 'Login', headerBackTitle: 'Back' }} />
                 <Stack.Screen name="(auth)/register" options={{ title: 'Register', headerBackTitle: 'Back' }} />
                 <Stack.Screen name="profile" options={{ title: 'Profile' }} />
                 <Stack.Screen name="session/index" options={{ title: 'Session' }} />
                 <Stack.Screen name="feedback" options={{ title: 'Feedback' }} />
+                <Stack.Screen name="history" options={{ title: 'History' }} />
+                <Stack.Screen name="tips" options={{ title: 'Tips' }} />
                 <Stack.Screen name="onboarding/one" options={{ headerShown: false }} />
                 <Stack.Screen name="onboarding/two" options={{ headerShown: false }} />
                 <Stack.Screen name="onboarding/three" options={{ headerShown: false }} />
@@ -152,7 +130,7 @@ export default function Layout() {
             )}
           </PersistGate>
         </Provider>
-      </ApplicationProvider>
+      </GluestackUIProvider>
     </>
   )
 }

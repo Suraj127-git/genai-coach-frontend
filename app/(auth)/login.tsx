@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Alert } from 'react-native'
-import Animated, { FadeInUp } from 'react-native-reanimated'
-import { Layout, Input, Button, Text, Card } from '@ui-kitten/components'
+import { Box, Text, Button, ButtonText, Input, InputField } from '@gluestack-ui/themed'
 import { Image, ScrollView } from 'react-native'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { login } from '../../store/slices/authSlice'
@@ -22,18 +21,20 @@ export default function Login() {
   }
 
   return (
-    <Animated.View style={{ flex: 1 }} entering={FadeInUp}>
-      <Layout style={{ flex: 1 }}>
+      <Box style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 32 }}>
           <Image source={require('../../assets/app-img-1.png')} style={{ width: '100%', height: 220, marginTop: 12, marginBottom: 20, borderRadius: 16 }} resizeMode='cover' />
-          <Card style={{ borderRadius: 16 }}>
-            <Text category='h5' style={{ marginBottom: 12 }}>Login</Text>
-            <Input placeholder='Email' value={email} onChangeText={setEmail} autoCapitalize='none' keyboardType='email-address' style={{ marginBottom: 8, borderRadius: 12 }} />
-            <Input placeholder='Password' value={password} onChangeText={setPassword} secureTextEntry style={{ marginBottom: 12, borderRadius: 12 }} />
-            <Button style={{ borderRadius: 24 }} disabled={status === 'loading'} onPress={onSubmit}>{status === 'loading' ? 'Loading...' : 'Login'}</Button>
-          </Card>
+          <Box style={{ borderRadius: 16, padding: 16, backgroundColor: '#FFFFFF' }}>
+            <Text style={{ marginBottom: 12, fontSize: 18, fontWeight: '600' }}>Login</Text>
+            <Input style={{ marginBottom: 8, borderRadius: 12 }}>
+              <InputField placeholder='Email' value={email} onChangeText={setEmail} autoCapitalize='none' keyboardType='email-address' />
+            </Input>
+            <Input style={{ marginBottom: 12, borderRadius: 12 }}>
+              <InputField placeholder='Password' value={password} onChangeText={setPassword} secureTextEntry />
+            </Input>
+            <Button style={{ borderRadius: 24 }} disabled={status === 'loading'} onPress={onSubmit}><ButtonText>{status === 'loading' ? 'Loading...' : 'Login'}</ButtonText></Button>
+          </Box>
         </ScrollView>
-      </Layout>
-    </Animated.View>
+      </Box>
   )
 }

@@ -38,15 +38,16 @@ function getBaseURL(): string {
     return ENV_URL;
   }
 
+  // Prefer Android emulator loopback first for reliability
+  if (Platform.OS === "android") {
+    console.log("📱 Android emulator base → http://10.0.2.2:8000");
+    return "http://10.0.2.2:8000";
+  }
+
   const lanUrl = deriveLanUrl();
   if (lanUrl) {
     console.log("🌐 Using LAN API:", lanUrl);
     return lanUrl;
-  }
-
-  if (Platform.OS === "android") {
-    console.log("📱 Android emulator fallback → http://10.0.2.2:8000");
-    return "http://10.0.2.2:8000";
   }
 
   console.log("💻 Defaulting to localhost API → http://localhost:8000");

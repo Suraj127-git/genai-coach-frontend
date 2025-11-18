@@ -1,15 +1,12 @@
-import Animated, { FadeIn } from 'react-native-reanimated'
-import { Layout, Text } from '@ui-kitten/components'
+import { Box, Text } from '@gluestack-ui/themed'
 import { useAppSelector } from '../../store/hooks'
 
 export default function TranscriptView() {
   const { transcript } = useAppSelector(s => s.sessions)
   return (
-    <Animated.View entering={FadeIn}>
-      <Layout style={{ marginTop: 8 }}>
-        <Text category='label'>Transcript</Text>
-        <Text appearance='hint'>{transcript || '—'}</Text>
-      </Layout>
-    </Animated.View>
+    <Box style={{ marginTop: 8 }}>
+      <Text>Transcript</Text>
+      <Text style={{ color: '#6B7280' }}>{transcript || '—'}</Text>
+    </Box>
   )
 }

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Alert } from 'react-native'
-import Animated, { FadeInUp } from 'react-native-reanimated'
-import { Layout, Text, Button } from '@ui-kitten/components'
+import { Alert, Image } from 'react-native'
+import { Box, Text, Button, ButtonText } from '@gluestack-ui/themed'
 import Timer from './Timer'
 import { requestMicPermission, startRecording, stopRecording } from '../../utils/audio'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
@@ -60,23 +59,26 @@ export default function Session() {
   }
 
   return (
-    <Animated.View style={{ flex: 1 }} entering={FadeInUp}>
-      <Layout style={{ flex: 1, padding: 16 }}>
-        <Text category='h6'>{currentQuestion}</Text>
+    <Box style={{ flex: 1, padding: 16 }}>
+        <Box style={{ borderRadius: 16, backgroundColor: '#FFFFFF', padding: 12 }}>
+          <Text style={{ fontWeight: '600' }}>Interview Session</Text>
+          <Text style={{ color: '#6B7280' }}>Technical Interview - Medium</Text>
+        </Box>
+        <Text style={{ marginTop: 12, fontSize: 16, fontWeight: '600' }}>{currentQuestion}</Text>
+        <Image source={require('../../assets/mock-int.png')} style={{ width: '100%', height: 140, marginTop: 8 }} resizeMode='contain' />
         <Timer running={recordingStatus === 'recording'} />
         {recordingStatus !== 'recording' && (
-          <Button style={{ marginTop: 8, borderRadius: 24 }} onPress={onStart}>Start Recording</Button>
+          <Button style={{ marginTop: 8, borderRadius: 24 }} onPress={onStart}><ButtonText>Start Recording</ButtonText></Button>
         )}
         {recordingStatus === 'recording' && (
-          <Button appearance='outline' style={{ marginTop: 8, borderRadius: 24 }} onPress={onStop}>Stop Recording</Button>
+          <Button style={{ marginTop: 8, borderRadius: 24, backgroundColor: '#DC2626' }} onPress={onStop}><ButtonText>Stop Recording</ButtonText></Button>
         )}
-        {audioUri && <Text appearance='hint' style={{ marginTop: 4 }}>Saved: {audioUri}</Text>}
-        {elapsed > 0 && <Text appearance='hint'>Duration: {elapsed}s</Text>}
+        {audioUri && <Text style={{ marginTop: 4, color: '#6B7280' }}>Saved: {audioUri}</Text>}
+        {elapsed > 0 && <Text style={{ color: '#6B7280' }}>Duration: {elapsed}s</Text>}
         <TranscriptView />
-        <Button style={{ marginTop: 8, borderRadius: 24 }} onPress={() => router.replace('/')}>Back to Home</Button>
-        <Button appearance='outline' style={{ marginTop: 8, borderRadius: 24 }} onPress={onReset}>Reset</Button>
-        <Button appearance='ghost' style={{ marginTop: 8, borderRadius: 24 }} onPress={() => router.push('/feedback')}>View Feedback</Button>
-      </Layout>
-    </Animated.View>
+        <Button style={{ marginTop: 8, borderRadius: 24 }} onPress={() => router.replace('/')}><ButtonText>Back to Home</ButtonText></Button>
+        <Button variant='outline' style={{ marginTop: 8, borderRadius: 24 }} onPress={onReset}><ButtonText>Reset</ButtonText></Button>
+        <Button variant='link' style={{ marginTop: 8, borderRadius: 24 }} onPress={() => router.push('/feedback')}><ButtonText>View Feedback</ButtonText></Button>
+      </Box>
   )
 }
