@@ -1,0 +1,42 @@
+name: Android Dev Build (EAS)
+
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: EAS profile to use (development, preview, production)
+        required: false
+        default: development
+  push:
+    paths:
+      - 'mobile/**'
+      - '.github/workflows/eas-android-dev.yml'
+
+jobs:
+  build-android-dev:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: mobile/package-lock.json
+
+      - run: npm ci
+
+      # Install EAS CLI
+      - run: npm install -g eas-cli
+
+      # Authenticate Expo (Required for CI)
+      - run: eas login --token ${{ secrets.EXPO_TOKEN }}
+
+      # Run EAS Build
+      - run: eas build --platform android --profile ${{ github.event.inputs.profile || 'development' }} --non-interactive --wait
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}

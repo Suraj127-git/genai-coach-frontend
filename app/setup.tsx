@@ -8,8 +8,16 @@ export default function Setup() {
   const router = useRouter()
   const [navigating, setNavigating] = useState(false)
 
-  const onStart = () => {
-    router.push('/session')
+  const onStartAudio = () => {
+    if (navigating) return
+    setNavigating(true)
+    setTimeout(() => { router.replace('/session'); setNavigating(false) }, 0)
+  }
+
+  const onStartVideo = () => {
+    if (navigating) return
+    setNavigating(true)
+    setTimeout(() => { router.replace('/video'); setNavigating(false) }, 0)
   }
 
   return (
@@ -23,11 +31,8 @@ export default function Setup() {
             <Text style={{ fontWeight: '600' }}>Interview Configuration</Text>
             <Text style={{ marginTop: 6, color: '#6B7280' }}>Choose type and difficulty in a later step.</Text>
             <View style={{ marginTop: 16 }}>
-              <Button disabled={navigating} style={{ borderRadius: 24 }} onPress={() => {
-                if (navigating) return
-                setNavigating(true)
-                setTimeout(() => { router.replace('/session'); setNavigating(false) }, 0)
-              }}><ButtonText>Start Interview</ButtonText></Button>
+              <Button disabled={navigating} style={{ borderRadius: 24 }} onPress={onStartAudio}><ButtonText>Start Audio Interview</ButtonText></Button>
+              <Button disabled={navigating} style={{ borderRadius: 24, marginTop: 8 }} onPress={onStartVideo}><ButtonText>Start Video Interview</ButtonText></Button>
             </View>
           </Box>
         </ScrollView>
