@@ -9,13 +9,12 @@ on:
         default: development
   push:
     paths:
-      - '**'  # Monitor all files, or specify relevant file patterns
+      - '**'
       - '.github/workflows/eas-android-dev.yml'
 
 jobs:
   build-android-dev:
     runs-on: ubuntu-latest
-    # Remove the working-directory since files are in root
 
     steps:
       - uses: actions/checkout@v4
@@ -24,14 +23,12 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-          # Remove cache-dependency-path or set to 'package-lock.json'
 
       - run: npm ci
 
       - run: npm install -g eas-cli
 
-      - run: eas login --token ${{ secrets.EXPO_TOKEN }}
-
+      # Run EAS Build with token as environment variable
       - run: eas build --platform android --profile ${{ github.event.inputs.profile || 'development' }} --non-interactive --wait
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
