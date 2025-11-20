@@ -59,26 +59,26 @@ export default function Session() {
   }
 
   return (
-    <Box style={{ flex: 1, padding: 16 }}>
-        <Box style={{ borderRadius: 16, backgroundColor: '#FFFFFF', padding: 12 }}>
-          <Text style={{ fontWeight: '600' }}>Interview Session</Text>
-          <Text style={{ color: '#6B7280' }}>Technical Interview - Medium</Text>
+    <Box className='flex-1 px-4 pt-6 bg-background'>
+        <Box className='rounded-xl bg-surface p-3'>
+          <Text className='font-semibold'>Interview Session</Text>
+          <Text className='text-muted'>Technical Interview - Medium</Text>
         </Box>
-        <Text style={{ marginTop: 12, fontSize: 16, fontWeight: '600' }}>{currentQuestion}</Text>
-        <Image source={require('../../assets/mock-int.png')} style={{ width: '100%', height: 140, marginTop: 8 }} resizeMode='contain' />
+        <Text className='mt-3 text-base font-semibold'>{currentQuestion}</Text>
+        <Image source={require('../../assets/mock-int.png')} resizeMode='contain' className='w-full h-36 mt-2' />
         <Timer running={recordingStatus === 'recording'} />
         {recordingStatus !== 'recording' && (
-          <Button style={{ marginTop: 8, borderRadius: 24 }} onPress={onStart}><ButtonText>Start Recording</ButtonText></Button>
+          <Button className='mt-2 rounded-2xl' onPress={onStart}><ButtonText>Start Recording</ButtonText></Button>
         )}
         {recordingStatus === 'recording' && (
-          <Button style={{ marginTop: 8, borderRadius: 24, backgroundColor: '#DC2626' }} onPress={onStop}><ButtonText>Stop Recording</ButtonText></Button>
+          <Button className='mt-2 rounded-2xl bg-red-600' onPress={onStop}><ButtonText>Stop Recording</ButtonText></Button>
         )}
-        {audioUri && <Text style={{ marginTop: 4, color: '#6B7280' }}>Saved: {audioUri}</Text>}
-        {elapsed > 0 && <Text style={{ color: '#6B7280' }}>Duration: {elapsed}s</Text>}
+        {audioUri && <Text className='mt-1 text-muted'>Saved: {audioUri}</Text>}
+        {elapsed > 0 && <Text className='text-muted'>Duration: {elapsed}s</Text>}
         <TranscriptView />
-        <Button style={{ marginTop: 8, borderRadius: 24 }} onPress={() => router.replace('/')}><ButtonText>Back to Home</ButtonText></Button>
-        <Button variant='outline' style={{ marginTop: 8, borderRadius: 24 }} onPress={onReset}><ButtonText>Reset</ButtonText></Button>
-        <Button variant='link' style={{ marginTop: 8, borderRadius: 24 }} onPress={() => router.push('/feedback')}><ButtonText>View Feedback</ButtonText></Button>
+        <Button className='mt-2 rounded-2xl' onPress={() => router.replace('/')}><ButtonText>Back to Home</ButtonText></Button>
+        <Button variant='outline' className='mt-2 rounded-2xl' onPress={onReset}><ButtonText>Reset</ButtonText></Button>
+        <Button variant='link' className='mt-2 rounded-2xl' onPress={() => router.push('/feedback')}><ButtonText>View Feedback</ButtonText></Button>
       </Box>
   )
 }

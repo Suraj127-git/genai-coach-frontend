@@ -4,9 +4,9 @@ import { useAppSelector } from '../../store/hooks'
 export default function TranscriptView() {
   const { transcript } = useAppSelector(s => s.sessions)
   return (
-    <Box style={{ marginTop: 8 }}>
-      <Text>Transcript</Text>
-      <Text style={{ color: '#6B7280' }}>{transcript || '—'}</Text>
+    <Box className='mt-2'>
+      <Text className='font-semibold'>Transcript</Text>
+      <Text className='text-muted'>{transcript || '—'}</Text>
     </Box>
   )
 }

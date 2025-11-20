@@ -10,18 +10,18 @@ export default function OnboardingFive() {
   const win = Dimensions.get('window')
   const imgH = Math.max(180, Math.min(240, Math.round(win.height * 0.28)))
   return (
-      <Box style={{ flex: 1 }}>
-        <ScrollView contentContainerStyle={{ paddingHorizontal: 24, paddingTop: Math.max(32, insets.top + 8), paddingBottom: Math.max(32, insets.bottom + 8), alignItems: 'center' }}>
-          <Image source={require('../../assets/split_ai_scene_3.png')} style={{ width: '100%', height: imgH, marginTop: 8 }} resizeMode='contain' />
-          <View style={{ marginTop: 16 }}>
-            <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700' }}>Ready to Begin</Text>
+      <Box className='flex-1 bg-background'>
+        <ScrollView contentContainerStyle={{ alignItems: 'center' }} className='px-6 pt-8 pb-8'>
+          <Image source={require('../../assets/split_ai_scene_3.png')} resizeMode='contain' style={{ height: imgH }} className='w-full mt-2' />
+          <View className='mt-4'>
+            <Text className='text-center text-xl font-bold'>Ready to Begin</Text>
           </View>
-          <View style={{ marginTop: 8 }}>
-            <Text style={{ textAlign: 'center', color: '#6B7280' }}>Start practicing interviews with AI guidance now.</Text>
+          <View className='mt-2'>
+            <Text className='text-center text-muted'>Start practicing interviews with AI guidance now.</Text>
           </View>
         </ScrollView>
         <View style={{ position: 'absolute', right: 24, bottom: Math.max(24, insets.bottom + 12) }}>
-          <Button style={{ width: 56, height: 56, borderRadius: 28 }} onPress={async () => { await AsyncStorage.setItem('onboarding_seen', 'true'); await AsyncStorage.removeItem('perm_skipped'); router.replace('/') }}>
+          <Button className='w-14 h-14 rounded-full' onPress={async () => { await AsyncStorage.setItem('onboarding_seen', 'true'); await AsyncStorage.removeItem('perm_skipped'); router.replace('/') }}>
             <ButtonText>→</ButtonText>
           </Button>
         </View>

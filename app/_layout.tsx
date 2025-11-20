@@ -1,3 +1,4 @@
+import '../global.css'  // First import
 import { Stack, useRouter } from 'expo-router'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -6,11 +7,12 @@ import NetInfo from '@react-native-community/netinfo'
 import Constants from 'expo-constants'
 import { NativeModulesProxy } from 'expo-modules-core'
 import { useEffect, useState } from 'react'
-// removed Animated usage
 import { GluestackUIProvider, Box, Text, Button, ButtonText, Spinner } from '@gluestack-ui/themed'
 import { config } from '@gluestack-ui/config'
 import { Linking } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import '../nativewind-interop'
+import { View } from 'react-native'
 
 export default function Layout() {
   const [online, setOnline] = useState(true)
@@ -69,24 +71,24 @@ export default function Layout() {
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             {!online ? (
-              <Box style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 16 }}>
-                <Text>No Internet Connection</Text>
-                <Text>Please connect to the internet to use the app.</Text>
-                <Button style={{ marginTop: 12 }} onPress={() => NetInfo.fetch().then(s => setOnline(!!s.isConnected))}><ButtonText>Retry</ButtonText></Button>
+              <Box className='flex-1 items-center justify-center p-4 bg-background'>
+                <Text className='text-lg font-semibold'>No Internet Connection</Text>
+                <Text className='text-muted mt-1'>Please connect to the internet to use the app.</Text>
+                <Button className='mt-3 rounded-2xl' onPress={() => NetInfo.fetch().then(s => setOnline(!!s.isConnected))}><ButtonText>Retry</ButtonText></Button>
               </Box>
             ) : permReady === null ? (
-              <Box style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+              <Box className='flex-1 items-center justify-center bg-background'>
                 <Spinner size='large' />
               </Box>
             ) : !permReady && !allowContinue ? (
-              <Box style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 16 }}>
-                <Text>Permissions Required</Text>
-                <Text>Location and media library access are required.</Text>
+              <Box className='flex-1 items-center justify-center p-4 bg-background'>
+                <Text className='text-lg font-semibold'>Permissions Required</Text>
+                <Text className='text-muted'>Location and media library access are required.</Text>
                 {Constants.appOwnership === 'expo' ? null : (
-                  <Text>If permissions fail, rebuild the development client to include native modules.</Text>
+                  <Text className='text-muted mt-1'>If permissions fail, rebuild the development client to include native modules.</Text>
                 )}
-                {permMsg ? (<Text>{permMsg}</Text>) : null}
-                <Button disabled={requesting} style={{ marginTop: 12 }} onPress={async () => {
+                {permMsg ? (<Text className='mt-2 text-muted'>{permMsg}</Text>) : null}
+                <Button disabled={requesting} className='mt-3 rounded-2xl' onPress={async () => {
                   try {
                     setRequesting(true)
                     const hasLoc = !!(NativeModulesProxy as any).ExpoLocation
@@ -102,7 +104,7 @@ export default function Layout() {
                   } catch {}
                   finally { setRequesting(false) }
                 }}><ButtonText>{requesting ? 'Requesting…' : 'Grant Permissions'}</ButtonText></Button>
-                <Button style={{ marginTop: 8 }} variant='outline' onPress={() => Linking.openSettings()}><ButtonText>Open Settings</ButtonText></Button>
+                <Button className='mt-2 rounded-2xl' variant='outline' onPress={() => Linking.openSettings()}><ButtonText>Open Settings</ButtonText></Button>
                 <Button style={{ marginTop: 8 }} variant='link' onPress={async () => { await AsyncStorage.setItem('perm_skipped', 'true'); setAllowContinue(true); router.replace('/onboarding/one') }}><ButtonText>Skip for now</ButtonText></Button>
               </Box>
             ) : (

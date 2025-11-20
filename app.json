@@ -6,6 +6,7 @@
     "owner": "surajshettyexpo",
     "version": "0.1.0",
     "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
 
     "icon": "./assets/icon.png",
 
@@ -57,7 +58,7 @@
       "eas": {
         "projectId": "2df1a5da-55a0-4342-9def-505486ab8f83"
       },
-      "EXPO_PUBLIC_API_URL": "https://e4fd8ec91f5e.ngrok-free.app"
+      "EXPO_PUBLIC_API_URL": "https://7dc478fc8642.ngrok-free.app"
     }
   }
 }

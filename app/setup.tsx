@@ -21,18 +21,18 @@ export default function Setup() {
   }
 
   return (
-      <Box style={{ flex: 1 }}>
-        <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 24 }}>
-          <Image source={require('../assets/split_ai_scene_4.png')} style={{ width: '100%', height: 180 }} resizeMode='contain' />
-          <Text style={{ textAlign: 'center', marginTop: 12, fontSize: 20, fontWeight: '700' }}>Setup Your Interview</Text>
-          <Text style={{ textAlign: 'center', marginTop: 4, color: '#6B7280' }}>Choose your interview type and difficulty level</Text>
+      <Box className='flex-1 bg-background'>
+        <ScrollView contentContainerStyle={{}} className='px-4 pt-6'>
+          <Image source={require('../assets/split_ai_scene_4.png')} resizeMode='contain' className='w-full h-48' />
+          <Text className='text-center mt-3 text-2xl font-bold'>Setup Your Interview</Text>
+          <Text className='text-center mt-1 text-muted'>Choose your interview type and difficulty level</Text>
 
-          <Box style={{ marginTop: 16, borderRadius: 16, backgroundColor: '#FFFFFF', padding: 12 }}>
-            <Text style={{ fontWeight: '600' }}>Interview Configuration</Text>
-            <Text style={{ marginTop: 6, color: '#6B7280' }}>Choose type and difficulty in a later step.</Text>
-            <View style={{ marginTop: 16 }}>
-              <Button disabled={navigating} style={{ borderRadius: 24 }} onPress={onStartAudio}><ButtonText>Start Audio Interview</ButtonText></Button>
-              <Button disabled={navigating} style={{ borderRadius: 24, marginTop: 8 }} onPress={onStartVideo}><ButtonText>Start Video Interview</ButtonText></Button>
+          <Box className='mt-4 rounded-xl bg-surface p-3'>
+            <Text className='font-semibold'>Interview Configuration</Text>
+            <Text className='mt-1 text-muted'>Choose type and difficulty in a later step.</Text>
+            <View className='mt-4'>
+              <Button disabled={navigating} className='rounded-2xl' onPress={onStartAudio}><ButtonText>Start Audio Interview</ButtonText></Button>
+              <Button disabled={navigating} className='rounded-2xl mt-2' onPress={onStartVideo}><ButtonText>Start Video Interview</ButtonText></Button>
             </View>
           </Box>
         </ScrollView>

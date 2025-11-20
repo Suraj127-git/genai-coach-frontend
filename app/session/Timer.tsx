@@ -11,5 +11,5 @@ export default function Timer({ running }: { running: boolean }) {
   }, [running])
   const m = Math.floor(sec / 60).toString().padStart(2, '0')
   const s = (sec % 60).toString().padStart(2, '0')
-  return <Text style={{ fontSize: 16 }}>{m}:{s}</Text>
+  return <Text className='text-base'>{m}:{s}</Text>
 }

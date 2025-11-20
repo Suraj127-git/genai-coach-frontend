@@ -39,21 +39,21 @@ export default function Register() {
   }
 
   return (
-      <Box style={{ flex: 1 }}>
-        <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 32 }}>
-          <Image source={require('../../assets/app-img-2.png')} style={{ width: '100%', height: 170, marginTop: 12, marginBottom: 20 }} resizeMode='contain' />
-          <Box style={{ borderRadius: 16, padding: 16, backgroundColor: '#FFFFFF' }}>
-            <Text style={{ marginBottom: 12, fontSize: 18, fontWeight: '600' }}>Create an account</Text>
-            <Input style={{ marginBottom: 8, borderRadius: 12 }}>
+      <Box className='flex-1 bg-background'>
+        <ScrollView className='px-4 pt-8'>
+          <Image source={require('../../assets/app-img-2.png')} resizeMode='contain' className='w-full h-44 mt-3 mb-5' />
+          <Box className='rounded-xl p-4 bg-surface'>
+            <Text className='mb-3 text-lg font-semibold'>Create an account</Text>
+            <Input className='mb-2 rounded-xl'>
               <InputField placeholder='Name' value={name} onChangeText={setName} />
             </Input>
-            <Input style={{ marginBottom: 8, borderRadius: 12 }}>
+            <Input className='mb-2 rounded-xl'>
               <InputField placeholder='Email' value={email} onChangeText={setEmail} autoCapitalize='none' keyboardType='email-address' />
             </Input>
-            <Input style={{ marginBottom: 12, borderRadius: 12 }}>
+            <Input className='mb-3 rounded-xl'>
               <InputField placeholder='Password' value={password} onChangeText={setPassword} secureTextEntry />
             </Input>
-            <Button style={{ borderRadius: 24 }} disabled={status === 'loading'} onPress={onSubmit}><ButtonText>{status === 'loading' ? 'Loading...' : 'Sign up'}</ButtonText></Button>
+            <Button className='rounded-2xl' disabled={status === 'loading'} onPress={onSubmit}><ButtonText>{status === 'loading' ? 'Loading...' : 'Sign up'}</ButtonText></Button>
           </Box>
         </ScrollView>
       </Box>

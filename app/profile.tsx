@@ -9,10 +9,10 @@ export default function Profile() {
   const status = useAppSelector(s => s.auth.status)
   const router = useRouter()
   return (
-      <Box style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontSize: 18, fontWeight: '600' }}>{user?.name}</Text>
-        <Text style={{ marginTop: 4, color: '#6B7280' }}>{user?.email}</Text>
-        <Button disabled={status === 'loading'} style={{ marginTop: 12, borderRadius: 24 }} onPress={async () => { const ok = await dispatch(logoutAsync()); if (ok) router.replace('/(auth)/login') }}>
+      <Box className='flex-1 items-center justify-center bg-background'>
+        <Text className='text-lg font-semibold'>{user?.name}</Text>
+        <Text className='mt-1 text-muted'>{user?.email}</Text>
+        <Button disabled={status === 'loading'} className='mt-3 rounded-2xl' onPress={async () => { const ok = await dispatch(logoutAsync()); if (ok) router.replace('/(auth)/login') }}>
           <ButtonText>{status === 'loading' ? 'Logging out...' : 'Logout'}</ButtonText>
         </Button>
       </Box>

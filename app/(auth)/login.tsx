@@ -21,18 +21,18 @@ export default function Login() {
   }
 
   return (
-      <Box style={{ flex: 1 }}>
-        <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 32 }}>
-          <Image source={require('../../assets/app-img-1.png')} style={{ width: '100%', height: 220, marginTop: 12, marginBottom: 20, borderRadius: 16 }} resizeMode='cover' />
-          <Box style={{ borderRadius: 16, padding: 16, backgroundColor: '#FFFFFF' }}>
-            <Text style={{ marginBottom: 12, fontSize: 18, fontWeight: '600' }}>Login</Text>
-            <Input style={{ marginBottom: 8, borderRadius: 12 }}>
+      <Box className='flex-1 bg-background'>
+        <ScrollView className='px-4 pt-8'>
+          <Image source={require('../../assets/app-img-1.png')} resizeMode='cover' className='w-full h-56 mt-3 mb-5 rounded-xl' />
+          <Box className='rounded-xl p-4 bg-surface'>
+            <Text className='mb-3 text-lg font-semibold'>Login</Text>
+            <Input className='mb-2 rounded-xl'>
               <InputField placeholder='Email' value={email} onChangeText={setEmail} autoCapitalize='none' keyboardType='email-address' />
             </Input>
-            <Input style={{ marginBottom: 12, borderRadius: 12 }}>
+            <Input className='mb-3 rounded-xl'>
               <InputField placeholder='Password' value={password} onChangeText={setPassword} secureTextEntry />
             </Input>
-            <Button style={{ borderRadius: 24 }} disabled={status === 'loading'} onPress={onSubmit}><ButtonText>{status === 'loading' ? 'Loading...' : 'Login'}</ButtonText></Button>
+            <Button className='rounded-2xl' disabled={status === 'loading'} onPress={onSubmit}><ButtonText>{status === 'loading' ? 'Loading...' : 'Login'}</ButtonText></Button>
           </Box>
         </ScrollView>
       </Box>

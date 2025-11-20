@@ -9,18 +9,18 @@ export default function OnboardingOne() {
   const win = Dimensions.get('window')
   const imgH = Math.max(180, Math.min(240, Math.round(win.height * 0.28)))
   return (
-      <Box style={{ flex: 1 }}>
-        <ScrollView contentContainerStyle={{ paddingHorizontal: 24, paddingTop: Math.max(32, insets.top + 8), paddingBottom: Math.max(32, insets.bottom + 8), alignItems: 'center' }}>
-          <Image source={require('../../assets/app-img-1.png')} style={{ width: '100%', height: imgH, marginTop: 8 }} resizeMode='contain' />
-          <View style={{ marginTop: 16 }}>
-            <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700' }}>Practice Interviews Smarter</Text>
+      <Box className='flex-1 bg-background'>
+        <ScrollView contentContainerStyle={{ alignItems: 'center' }} className='px-6 pt-8 pb-8'>
+          <Image source={require('../../assets/app-img-1.png')} resizeMode='contain' style={{ height: imgH }} className='w-full mt-2' />
+          <View className='mt-4'>
+            <Text className='text-center text-xl font-bold'>Practice Interviews Smarter</Text>
           </View>
-          <View style={{ marginTop: 8 }}>
-            <Text style={{ textAlign: 'center', color: '#6B7280' }}>Get tailored questions and guidance to improve your interview performance.</Text>
+          <View className='mt-2'>
+            <Text className='text-center text-muted'>Get tailored questions and guidance to improve your interview performance.</Text>
           </View>
         </ScrollView>
         <View style={{ position: 'absolute', right: 24, bottom: Math.max(24, insets.bottom + 12) }}>
-          <Button style={{ width: 56, height: 56, borderRadius: 28 }} onPress={() => router.push('/onboarding/two')}>
+          <Button className='w-14 h-14 rounded-full' onPress={() => router.push('/onboarding/two')}>
             <ButtonText>→</ButtonText>
           </Button>
         </View>

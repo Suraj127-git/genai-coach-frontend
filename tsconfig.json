@@ -5,13 +5,15 @@
     "jsx": "react-jsx",
     "strict": true,
     "moduleResolution": "bundler",
+    "jsxImportSource": "nativewind",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "types": [
       "react",
       "react-native",
-      "expo"
+      "expo",
+      "nativewind/types"
     ]
   },
   "extends": "expo/tsconfig.base"

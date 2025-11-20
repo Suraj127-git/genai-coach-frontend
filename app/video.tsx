@@ -12,7 +12,7 @@ export default function Video() {
   const [micPerm, setMicPerm] = useState<boolean | null>(null)
   const [type, setType] = useState<'front' | 'back'>('front')
   const [micEnabled, setMicEnabled] = useState(true)
-  const cameraRef = useRef<any>(null)
+  // removed explicit ref usage; CameraView supports facing toggle without imperative ref
   const dispatch = useAppDispatch()
   const router = useRouter()
 
@@ -48,27 +48,27 @@ export default function Video() {
   }
 
   return (
-      <Box style={{ flex: 1, padding: 16 }}>
-        <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700' }}>Interview Call</Text>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 12 }}>
-          <Box style={{ width: '48%', height: 200, borderRadius: 16, alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF' }}>
-            <Image source={require('../assets/icon.png')} style={{ width: 64, height: 64 }} />
-            <Text style={{ marginTop: 8, color: '#6B7280' }}>AI Interviewer</Text>
+      <Box className='flex-1 px-4 pt-6 bg-background'>
+        <Text className='text-center text-xl font-bold'>Interview Call</Text>
+        <View className='flex-row justify-between mt-3'>
+          <Box className='w-[48%] h-52 rounded-xl items-center justify-center bg-surface'>
+            <Image source={require('../assets/icon.png')} className='w-16 h-16' />
+            <Text className='mt-2 text-muted'>AI Interviewer</Text>
           </Box>
-          <Box style={{ width: '48%', height: 200, borderRadius: 16, overflow: 'hidden', backgroundColor: '#FFFFFF' }}>
+          <Box className='w-[48%] h-52 rounded-xl overflow-hidden bg-surface'>
             {camPermStatus?.granted ? (
-              <CameraView ref={(r) => { cameraRef.current = r }} style={{ flex: 1 }} facing={type} />
+              <CameraView style={{ flex: 1 }} facing={type} />
             ) : (
-              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ color: '#6B7280' }}>Camera permission required</Text>
+              <View className='flex-1 items-center justify-center'>
+                <Text className='text-muted'>Camera permission required</Text>
               </View>
             )}
           </Box>
         </View>
-        <View style={{ position: 'absolute', left: 0, right: 0, bottom: 24, flexDirection: 'row', justifyContent: 'center' }}>
-          <Button style={{ borderRadius: 24, marginHorizontal: 8 }} onPress={onToggleMic}><ButtonText>{micEnabled ? 'Mute' : 'Unmute'}</ButtonText></Button>
-          <Button style={{ borderRadius: 24, marginHorizontal: 8, backgroundColor: '#2563EB' }} onPress={onToggleCamera}><ButtonText>Camera</ButtonText></Button>
-          <Button style={{ borderRadius: 24, marginHorizontal: 8, backgroundColor: '#DC2626' }} onPress={onEnd}><ButtonText>End</ButtonText></Button>
+        <View style={{ position: 'absolute', left: 0, right: 0, bottom: 24 }} className='flex-row justify-center'>
+          <Button className='rounded-2xl mx-2' onPress={onToggleMic}><ButtonText>{micEnabled ? 'Mute' : 'Unmute'}</ButtonText></Button>
+          <Button className='rounded-2xl mx-2 bg-primary-600' onPress={onToggleCamera}><ButtonText>Camera</ButtonText></Button>
+          <Button className='rounded-2xl mx-2 bg-red-600' onPress={onEnd}><ButtonText>End</ButtonText></Button>
         </View>
       </Box>
   )

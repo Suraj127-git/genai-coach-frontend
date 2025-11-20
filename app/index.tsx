@@ -30,7 +30,7 @@ export default function Home() {
 
   if (checking) {
     return (
-      <Box style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Box className='flex-1 items-center justify-center bg-background'>
         <Spinner size='large' />
       </Box>
     )
@@ -38,16 +38,16 @@ export default function Home() {
 
   if (!user) {
     return (
-      <Box style={{ flex: 1 }}>
-          <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 32, alignItems: 'center' }}>
-            <Image source={require('../assets/app-img-1.png')} style={{ width: '100%', height: 240, marginTop: 12, marginBottom: 20, borderRadius: 16 }} resizeMode='cover' />
-            <Box style={{ width: '100%', borderRadius: 16, padding: 16, backgroundColor: '#FFFFFF' }}>
-              <Text style={{ marginBottom: 12, textAlign: 'center', fontSize: 20, fontWeight: '600' }}>AI Mock Interview Coach</Text>
+      <Box className='flex-1 bg-background'>
+          <ScrollView className='px-4 pt-8' contentContainerStyle={{ alignItems: 'center' }}>
+            <Image source={require('../assets/app-img-1.png')} resizeMode='cover' className='w-full h-60 mt-3 mb-5 rounded-xl' />
+            <Box className='w-full rounded-xl p-4 bg-surface'>
+              <Text className='mb-3 text-center text-xl font-semibold'>AI Mock Interview Coach</Text>
               <Link href="/(auth)/login" asChild>
-                <Button style={{ borderRadius: 24 }}><ButtonText>Login</ButtonText></Button>
+                <Button className='rounded-2xl'><ButtonText>Login</ButtonText></Button>
               </Link>
               <Link href="/(auth)/register" asChild>
-                <Button style={{ marginTop: 8, borderRadius: 24 }} variant='outline'><ButtonText>Register</ButtonText></Button>
+                <Button className='rounded-2xl mt-2' variant='outline'><ButtonText>Register</ButtonText></Button>
               </Link>
             </Box>
           </ScrollView>
@@ -61,15 +61,15 @@ export default function Home() {
   }
 
   return (
-    <Box style={{ flex: 1 }}>
-      <Box style={{ flex: 1 }}>
+    <Box className='flex-1 bg-background'>
+      <Box className='flex-1'>
         <ScrollView contentContainerStyle={{ paddingBottom: 24 }}>
-          <View style={{ height: 220 }}>
-            <View style={{ flex: 1, backgroundColor: '#1D4ED8', paddingHorizontal: 16, paddingTop: 24, justifyContent: 'center' }}>
-              <Text style={{ color: '#FFFFFF', textAlign: 'center', fontSize: 24, fontWeight: '700' }}>AI Mock Interview Coach</Text>
-              <Text style={{ color: '#E0F2FE', textAlign: 'center', marginTop: 8 }}>Master your interviews with AI-powered practice sessions</Text>
-              <View style={{ alignItems: 'center', marginTop: 16 }}>
-                <Button style={{ borderRadius: 24 }} onPress={() => {
+          <View className='h-56'>
+            <View className='flex-1 bg-primary-700 px-4 pt-6 justify-center'>
+              <Text className='text-white text-center text-2xl font-bold'>AI Mock Interview Coach</Text>
+              <Text className='text-primary-100 text-center mt-2'>Master your interviews with AI-powered practice sessions</Text>
+              <View className='items-center mt-4'>
+                <Button className='rounded-2xl' onPress={() => {
                   try {
                     setTimeout(() => router.push('/setup'), 0)
                   } catch {}
@@ -78,43 +78,43 @@ export default function Home() {
             </View>
           </View>
 
-          <View style={{ paddingHorizontal: 16, paddingTop: 24 }}>
-            <Text style={{ textAlign: 'center', marginBottom: 16, fontSize: 18, fontWeight: '600' }}>Why Practice With Us?</Text>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-              <Box style={{ width: '48%', marginBottom: 12, borderRadius: 16, backgroundColor: '#FFFFFF', padding: 12 }}>
-                <View style={{ alignItems: 'center' }}>
-                  <Image source={require('../assets/split_icon_1.png')} style={{ width: 56, height: 56, marginBottom: 8 }} />
-                  <Text style={{ textAlign: 'center', fontWeight: '600' }}>AI-Powered Feedback</Text>
-                  <Text style={{ textAlign: 'center', marginTop: 6, color: '#6B7280' }}>Get instant, personalized feedback.</Text>
+          <View className='px-4 pt-6'>
+            <Text className='text-center mb-4 text-lg font-semibold'>Why Practice With Us?</Text>
+            <View className='flex-row flex-wrap justify-between'>
+              <Box className='w-[48%] mb-3 rounded-xl bg-surface p-3'>
+                <View className='items-center'>
+                  <Image source={require('../assets/split_icon_1.png')} className='w-14 h-14 mb-2' />
+                  <Text className='text-center font-semibold'>AI-Powered Feedback</Text>
+                  <Text className='text-center mt-1 text-muted'>Get instant, personalized feedback.</Text>
                 </View>
               </Box>
-              <Box style={{ width: '48%', marginBottom: 12, borderRadius: 16, backgroundColor: '#FFFFFF', padding: 12 }}>
-                <View style={{ alignItems: 'center' }}>
-                  <Image source={require('../assets/split_icon_2.png')} style={{ width: 56, height: 56, marginBottom: 8 }} />
-                  <Text style={{ textAlign: 'center', fontWeight: '600' }}>Realistic Scenarios</Text>
-                  <Text style={{ textAlign: 'center', marginTop: 6, color: '#6B7280' }}>Practice with real questions.</Text>
+              <Box className='w-[48%] mb-3 rounded-xl bg-surface p-3'>
+                <View className='items-center'>
+                  <Image source={require('../assets/split_icon_2.png')} className='w-14 h-14 mb-2' />
+                  <Text className='text-center font-semibold'>Realistic Scenarios</Text>
+                  <Text className='text-center mt-1 text-muted'>Practice with real questions.</Text>
                 </View>
               </Box>
-              <Box style={{ width: '48%', marginBottom: 12, borderRadius: 16, backgroundColor: '#FFFFFF', padding: 12 }}>
-                <View style={{ alignItems: 'center' }}>
-                  <Image source={require('../assets/split_icon_3.png')} style={{ width: 56, height: 56, marginBottom: 8 }} />
-                  <Text style={{ textAlign: 'center', fontWeight: '600' }}>Track Progress</Text>
-                  <Text style={{ textAlign: 'center', marginTop: 6, color: '#6B7280' }}>Monitor improvements over time.</Text>
+              <Box className='w-[48%] mb-3 rounded-xl bg-surface p-3'>
+                <View className='items-center'>
+                  <Image source={require('../assets/split_icon_3.png')} className='w-14 h-14 mb-2' />
+                  <Text className='text-center font-semibold'>Track Progress</Text>
+                  <Text className='text-center mt-1 text-muted'>Monitor improvements over time.</Text>
                 </View>
               </Box>
-              <Box style={{ width: '48%', marginBottom: 12, borderRadius: 16, backgroundColor: '#FFFFFF', padding: 12 }}>
-                <View style={{ alignItems: 'center' }}>
-                  <Image source={require('../assets/split_icon_4.png')} style={{ width: 56, height: 56, marginBottom: 8 }} />
-                  <Text style={{ textAlign: 'center', fontWeight: '600' }}>Interview Tips</Text>
-                  <Text style={{ textAlign: 'center', marginTop: 6, color: '#6B7280' }}>Access expert strategies.</Text>
+              <Box className='w-[48%] mb-3 rounded-xl bg-surface p-3'>
+                <View className='items-center'>
+                  <Image source={require('../assets/split_icon_4.png')} className='w-14 h-14 mb-2' />
+                  <Text className='text-center font-semibold'>Interview Tips</Text>
+                  <Text className='text-center mt-1 text-muted'>Access expert strategies.</Text>
                 </View>
               </Box>
             </View>
           </View>
 
-          <View style={{ alignItems: 'center', paddingHorizontal: 16, paddingTop: 8 }}>
+          <View className='items-center px-4 pt-2'>
             <Button variant='link' onPress={onEnableReminders}><ButtonText>Enable Reminders</ButtonText></Button>
-            <Button variant='outline' style={{ marginTop: 8 }} onPress={() => router.push('/profile')}><ButtonText>Profile</ButtonText></Button>
+            <Button variant='outline' className='mt-2 rounded-2xl' onPress={() => router.push('/profile')}><ButtonText>Profile</ButtonText></Button>
           </View>
         </ScrollView>
       </Box>

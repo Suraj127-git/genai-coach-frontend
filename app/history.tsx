@@ -9,44 +9,44 @@ export default function History() {
   ]
 
   return (
-      <Box style={{ flex: 1 }}>
-        <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 24 }}>
-          <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700' }}>Interview History</Text>
-          <Text style={{ textAlign: 'center', marginTop: 4, color: '#6B7280' }}>Review your past interviews and track your progress</Text>
+      <Box className='flex-1 bg-background'>
+        <ScrollView className='px-4 pt-6'>
+          <Text className='text-center text-xl font-bold'>Interview History</Text>
+          <Text className='text-center mt-1 text-muted'>Review your past interviews and track your progress</Text>
 
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 16 }}>
-            <Box style={{ width: '32%', borderRadius: 16, backgroundColor: '#FFFFFF', padding: 12 }}>
-              <View style={{ alignItems: 'center' }}>
-                <Text style={{ fontSize: 18, fontWeight: '600' }}>3</Text>
-                <Text style={{ color: '#6B7280' }}>Total</Text>
+          <View className='flex-row justify-between mt-4'>
+            <Box className='w-[32%] rounded-xl bg-surface p-3'>
+              <View className='items-center'>
+                <Text className='text-lg font-semibold'>3</Text>
+                <Text className='text-muted'>Total</Text>
               </View>
             </Box>
-            <Box style={{ width: '32%', borderRadius: 16, backgroundColor: '#FFFFFF', padding: 12 }}>
-              <View style={{ alignItems: 'center' }}>
-                <Text style={{ color: '#2563EB', fontSize: 18, fontWeight: '600' }}>85%</Text>
-                <Text style={{ color: '#6B7280' }}>Average</Text>
+            <Box className='w-[32%] rounded-xl bg-surface p-3'>
+              <View className='items-center'>
+                <Text className='text-primary-600 text-lg font-semibold'>85%</Text>
+                <Text className='text-muted'>Average</Text>
               </View>
             </Box>
-            <Box style={{ width: '32%', borderRadius: 16, backgroundColor: '#FFFFFF', padding: 12 }}>
-              <View style={{ alignItems: 'center' }}>
-                <Text style={{ color: '#16A34A', fontSize: 18, fontWeight: '600' }}>+12%</Text>
-                <Text style={{ color: '#6B7280' }}>Improvement</Text>
+            <Box className='w-[32%] rounded-xl bg-surface p-3'>
+              <View className='items-center'>
+                <Text className='text-green-600 text-lg font-semibold'>+12%</Text>
+                <Text className='text-muted'>Improvement</Text>
               </View>
             </Box>
           </View>
 
           {items.map((it, idx) => (
-            <Box key={idx} style={{ marginTop: 12, borderRadius: 16, backgroundColor: '#FFFFFF', padding: 12 }}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Image source={require('../assets/split_icon_3.png')} style={{ width: 40, height: 40, marginRight: 12 }} />
-                <View style={{ flex: 1 }}>
-                  <Text style={{ fontWeight: '600' }}>{it.title}</Text>
-                  <Text style={{ color: '#6B7280' }}>{it.date} • {it.duration}</Text>
-                  <Button variant='link' style={{ marginTop: 6 }} onPress={() => {}}><ButtonText>View Details</ButtonText></Button>
+            <Box key={idx} className='mt-3 rounded-xl bg-surface p-3'>
+              <View className='flex-row items-center'>
+                <Image source={require('../assets/split_icon_3.png')} className='w-10 h-10 mr-3' />
+                <View className='flex-1'>
+                  <Text className='font-semibold'>{it.title}</Text>
+                  <Text className='text-muted'>{it.date} • {it.duration}</Text>
+                  <Button variant='link' onPress={() => {}} className='mt-1'><ButtonText>View Details</ButtonText></Button>
                 </View>
-                <View style={{ alignItems: 'center', width: 64 }}>
-                  <Text style={{ color: '#2563EB', fontSize: 18, fontWeight: '600' }}>{it.score}</Text>
-                  <Text style={{ color: '#6B7280' }}>Score</Text>
+                <View className='items-center w-16'>
+                  <Text className='text-primary-600 text-lg font-semibold'>{it.score}</Text>
+                  <Text className='text-muted'>Score</Text>
                 </View>
               </View>
             </Box>

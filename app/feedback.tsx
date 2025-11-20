@@ -5,46 +5,46 @@ import { Image, View } from 'react-native'
 export default function Feedback() {
   const { transcript } = useAppSelector(s => s.sessions)
   return (
-      <Box style={{ flex: 1, padding: 16 }}>
-        <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700' }}>Interview Results</Text>
-        <Text style={{ textAlign: 'center', marginTop: 4, color: '#6B7280' }}>Here’s how you performed in your mock interview</Text>
-        <Box style={{ marginTop: 16, borderRadius: 16, backgroundColor: '#FFFFFF', padding: 12 }}>
-          <View style={{ alignItems: 'center' }}>
-            <Image source={require('../assets/split_ai_scene_3.png')} style={{ width: '100%', height: 140 }} resizeMode='contain' />
-            <Text style={{ fontSize: 18, fontWeight: '600' }}>Overall Score</Text>
-            <Text style={{ color: '#2563EB', fontSize: 16, fontWeight: '600' }}>85/100</Text>
-            <Text style={{ color: '#6B7280' }}>Great performance!</Text>
+      <Box className='flex-1 px-4 pt-6 bg-background'>
+        <Text className='text-center text-xl font-bold'>Interview Results</Text>
+        <Text className='text-center mt-1 text-muted'>Here’s how you performed in your mock interview</Text>
+        <Box className='mt-4 rounded-xl bg-surface p-3'>
+          <View className='items-center'>
+            <Image source={require('../assets/split_ai_scene_3.png')} className='w-full h-36' resizeMode='contain' />
+            <Text className='text-lg font-semibold'>Overall Score</Text>
+            <Text className='text-primary-600 text-base font-semibold'>85/100</Text>
+            <Text className='text-muted'>Great performance!</Text>
           </View>
         </Box>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 12 }}>
-          <Box style={{ width: '48%', borderRadius: 16, backgroundColor: '#FFFFFF', padding: 12 }}>
-            <View style={{ alignItems: 'center' }}>
-              <Image source={require('../assets/postive-feed.png')} style={{ width: 56, height: 56, marginBottom: 8 }} />
-              <Text style={{ fontSize: 16, fontWeight: '600' }}>Strengths</Text>
-              <Text style={{ marginTop: 6, textAlign: 'center', color: '#6B7280' }}>Technical Knowledge, Communication</Text>
+        <View className='flex-row justify-between mt-3'>
+          <Box className='w-[48%] rounded-xl bg-surface p-3'>
+            <View className='items-center'>
+              <Image source={require('../assets/postive-feed.png')} className='w-14 h-14 mb-2' />
+              <Text className='text-base font-semibold'>Strengths</Text>
+              <Text className='mt-1 text-center text-muted'>Technical Knowledge, Communication</Text>
             </View>
           </Box>
-          <Box style={{ width: '48%', borderRadius: 16, backgroundColor: '#FFFFFF', padding: 12 }}>
-            <View style={{ alignItems: 'center' }}>
-              <Image source={require('../assets/negative-feed.png')} style={{ width: 56, height: 56, marginBottom: 8 }} />
-              <Text style={{ fontSize: 16, fontWeight: '600' }}>Areas to Improve</Text>
-              <Text style={{ marginTop: 6, textAlign: 'center', color: '#6B7280' }}>Response Time, Detail Level</Text>
+          <Box className='w-[48%] rounded-xl bg-surface p-3'>
+            <View className='items-center'>
+              <Image source={require('../assets/negative-feed.png')} className='w-14 h-14 mb-2' />
+              <Text className='text-base font-semibold'>Areas to Improve</Text>
+              <Text className='mt-1 text-center text-muted'>Response Time, Detail Level</Text>
             </View>
           </Box>
         </View>
-        <Box style={{ marginTop: 12, borderRadius: 16, backgroundColor: '#FFFFFF' }}>
-          <Text style={{ padding: 12, fontSize: 16, fontWeight: '600' }}>Detailed Feedback</Text>
-          <Text style={{ paddingHorizontal: 12, paddingBottom: 12, color: '#6B7280' }}>{transcript || 'No transcript yet'}</Text>
+        <Box className='mt-3 rounded-xl bg-surface'>
+          <Text className='p-3 text-base font-semibold'>Detailed Feedback</Text>
+          <Text className='px-3 pb-3 text-muted'>{transcript || 'No transcript yet'}</Text>
         </Box>
-        <View style={{ alignItems: 'center', marginTop: 16 }}>
-          <Button style={{ borderRadius: 24 }} onPress={() => {}}>
+        <View className='items-center mt-4'>
+          <Button className='rounded-2xl' onPress={() => {}}>
             <ButtonText>Practice Again</ButtonText>
           </Button>
-          <Button style={{ marginTop: 8, backgroundColor: 'transparent' }} onPress={() => {}}>
-            <ButtonText style={{ color: '#2563EB' }}>View Interview Tips</ButtonText>
+          <Button className='mt-2 bg-transparent' onPress={() => {}}>
+            <ButtonText className='text-primary-600'>View Interview Tips</ButtonText>
           </Button>
-          <Button style={{ marginTop: 8, borderRadius: 24, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#2563EB' }} onPress={() => {}}>
-            <ButtonText style={{ color: '#2563EB' }}>History</ButtonText>
+          <Button className='mt-2 rounded-2xl bg-transparent border border-primary-600' onPress={() => {}}>
+            <ButtonText className='text-primary-600'>History</ButtonText>
           </Button>
         </View>
       </Box>
