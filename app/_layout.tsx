@@ -13,6 +13,7 @@ import { Linking } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import '../nativewind-interop'
 import { View } from 'react-native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 export default function Layout() {
   const [online, setOnline] = useState(true)
@@ -67,9 +68,10 @@ export default function Layout() {
 
   return (
     <>
-      <GluestackUIProvider config={config}>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
+      <SafeAreaProvider>
+        <GluestackUIProvider config={config}>
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
             {!online ? (
               <Box className='flex-1 items-center justify-center p-4 bg-background'>
                 <Text className='text-lg font-semibold'>No Internet Connection</Text>
@@ -113,15 +115,14 @@ export default function Layout() {
                 headerTitleStyle: { color: '#0F172A' },
                 headerStyle: { backgroundColor: '#E0F2FE' },
               }}>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 <Stack.Screen name="index" options={{ title: 'Home' }} />
                 <Stack.Screen name="setup" options={{ title: 'Setup', headerBackTitle: 'Back' }} />
                 <Stack.Screen name="video" options={{ title: 'Video Call', headerBackTitle: 'Back' }} />
                 <Stack.Screen name="(auth)/login" options={{ title: 'Login', headerBackTitle: 'Back' }} />
                 <Stack.Screen name="(auth)/register" options={{ title: 'Register', headerBackTitle: 'Back' }} />
-                <Stack.Screen name="profile" options={{ title: 'Profile' }} />
                 <Stack.Screen name="session/index" options={{ title: 'Session' }} />
                 <Stack.Screen name="feedback" options={{ title: 'Feedback' }} />
-                <Stack.Screen name="history" options={{ title: 'History' }} />
                 <Stack.Screen name="tips" options={{ title: 'Tips' }} />
                 <Stack.Screen name="onboarding/one" options={{ headerShown: false }} />
                 <Stack.Screen name="onboarding/two" options={{ headerShown: false }} />
@@ -130,9 +131,10 @@ export default function Layout() {
                 <Stack.Screen name="onboarding/five" options={{ headerShown: false }} />
               </Stack>
             )}
-          </PersistGate>
-        </Provider>
-      </GluestackUIProvider>
+            </PersistGate>
+          </Provider>
+        </GluestackUIProvider>
+      </SafeAreaProvider>
     </>
   )
 }

@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Alert } from 'react-native'
 import { Box, Text, Button, ButtonText, Input, InputField } from '@gluestack-ui/themed'
-import { Image, ScrollView } from 'react-native'
+import { Image, ScrollView, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { GradientHeader, GlassCard } from '../../components/ui'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { register } from '../../store/slices/authSlice'
+import { register, resetStatus } from '../../store/slices/authSlice'
 import { useRouter } from 'expo-router'
 
 export default function Register() {
@@ -14,6 +16,7 @@ export default function Register() {
   const status = useAppSelector(s => s.auth.status)
   const error = useAppSelector(s => s.auth.error)
   const router = useRouter()
+  useEffect(() => { dispatch(resetStatus()) }, [])
 
   const onSubmit = async () => {
     const emailOk = /.+@.+\..+/.test(email)
@@ -31,7 +34,7 @@ export default function Register() {
     console.log('[Register] Registration result:', ok)
     if (ok) {
       console.log('[Register] Success, navigating to home')
-      router.replace('/')
+      router.replace('/(tabs)')
     } else {
       console.warn('[Register] Registration failed:', error)
       Alert.alert('Register failed', error || 'Unknown error')
@@ -39,10 +42,16 @@ export default function Register() {
   }
 
   return (
+      <SafeAreaView style={{ flex: 1 }} edges={['top','bottom']}>
       <Box className='flex-1 bg-background'>
-        <ScrollView className='px-4 pt-8'>
-          <Image source={require('../../assets/app-img-2.png')} resizeMode='contain' className='w-full h-44 mt-3 mb-5' />
-          <Box className='rounded-xl p-4 bg-surface'>
+        <ScrollView>
+          <GradientHeader height={200} />
+          <View className='px-4' style={{ marginTop: -160 }}>
+            <Text className='text-center text-2xl font-bold'>Create an account</Text>
+            <Text className='text-center mt-1 text-muted'>Join and start practicing</Text>
+          </View>
+          <View className='px-4 pt-6'>
+            <GlassCard>
             <Text className='mb-3 text-lg font-semibold'>Create an account</Text>
             <Input className='mb-2 rounded-xl'>
               <InputField placeholder='Name' value={name} onChangeText={setName} />
@@ -53,9 +62,11 @@ export default function Register() {
             <Input className='mb-3 rounded-xl'>
               <InputField placeholder='Password' value={password} onChangeText={setPassword} secureTextEntry />
             </Input>
-            <Button className='rounded-2xl' disabled={status === 'loading'} onPress={onSubmit}><ButtonText>{status === 'loading' ? 'Loading...' : 'Sign up'}</ButtonText></Button>
-          </Box>
+            <Button className='rounded-full' disabled={status === 'loading'} onPress={onSubmit}><ButtonText>{status === 'loading' ? 'Loading...' : 'Sign up'}</ButtonText></Button>
+            </GlassCard>
+          </View>
         </ScrollView>
       </Box>
+      </SafeAreaView>
   )
 }

@@ -1,5 +1,6 @@
 import { Box, Text, Button, ButtonText } from '@gluestack-ui/themed'
 import { View, Image } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { CameraView, useCameraPermissions } from 'expo-camera'
 import { useEffect, useRef, useState } from 'react'
 import { requestMicPermission, startRecording, stopRecording } from '../utils/audio'
@@ -44,10 +45,11 @@ export default function Video() {
   const onEnd = async () => {
     const { uri } = await stopRecording()
     if (uri) { dispatch(setAudioUri(uri)); dispatch(addPendingUpload({ uri, time: Date.now() })) }
-    router.replace('/')
+    router.replace('/(tabs)')
   }
 
   return (
+      <SafeAreaView style={{ flex: 1 }} edges={['top','bottom']}>
       <Box className='flex-1 px-4 pt-6 bg-background'>
         <Text className='text-center text-xl font-bold'>Interview Call</Text>
         <View className='flex-row justify-between mt-3'>
@@ -71,5 +73,6 @@ export default function Video() {
           <Button className='rounded-2xl mx-2 bg-red-600' onPress={onEnd}><ButtonText>End</ButtonText></Button>
         </View>
       </Box>
+      </SafeAreaView>
   )
 }

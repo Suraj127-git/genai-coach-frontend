@@ -24,11 +24,12 @@ const slice = createSlice({
     registerSuccess: (s, a) => { s.status = 'idle'; s.user = a.payload.user; s.token = a.payload.token; s.refreshToken = a.payload.refreshToken ?? s.refreshToken },
     registerFailure: (s, a) => { s.status = 'error'; s.error = a.payload },
     logoutStart: s => { s.status = 'loading'; s.error = null },
-    logout: s => { s.user = null; s.token = null; s.refreshToken = null }
+    logout: s => { s.user = null; s.token = null; s.refreshToken = null; s.status = 'idle' }
+    ,resetStatus: s => { s.status = 'idle'; s.error = null }
   }
 })
 
-export const { loginStart, loginSuccess, loginFailure, registerStart, registerSuccess, registerFailure, logoutStart, logout } = slice.actions
+export const { loginStart, loginSuccess, loginFailure, registerStart, registerSuccess, registerFailure, logoutStart, logout, resetStatus } = slice.actions
 
 export default function reducer(state: State | undefined, action: any): State {
   return slice.reducer(state, action)

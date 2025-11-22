@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Alert, Image, ScrollView, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { Box, Text, Button, ButtonText } from '@gluestack-ui/themed'
+import { GradientHeader, GlassCard } from '../../components/ui'
 import Timer from './Timer'
 import { requestMicPermission, startRecording, stopRecording } from '../../utils/audio'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
@@ -59,29 +61,29 @@ export default function Session() {
   }
 
   return (
+    <SafeAreaView style={{ flex: 1 }} edges={['top','bottom']}>
     <Box style={{ flex: 1 }}>
-      <View style={{ paddingHorizontal: 16, paddingTop: 12, paddingBottom: 12, borderBottomWidth: 1, borderColor: '#E5E7EB', backgroundColor: '#FFFFFF' }}>
-        <Text style={{ fontSize: 18, fontWeight: '700' }}>Voice Interview</Text>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Text style={{ color: '#6B7280' }}>Audio Mock Interview - Medium Level</Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={{ color: '#2563EB' }}>Questions: 1</Text>
-            <View style={{ marginLeft: 8 }}><Timer running={recordingStatus === 'recording'} /></View>
-          </View>
+      <GradientHeader height={160} />
+      <View style={{ marginTop: -130, paddingHorizontal: 16 }}>
+        <Text style={{ fontSize: 20, fontWeight: '700', textAlign: 'center' }}>Voice Interview</Text>
+        <Text style={{ color: '#6B7280', textAlign: 'center', marginTop: 6 }}>Audio Mock Interview - Medium Level</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 8 }}>
+          <Text style={{ color: '#2563EB' }}>Questions: 1</Text>
+          <View style={{ marginLeft: 8 }}><Timer running={recordingStatus === 'recording'} /></View>
         </View>
       </View>
 
       <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 120 }}>
-        <View style={{ borderRadius: 12, backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#E5E7EB' }}>
-          <Text style={{ padding: 12, fontSize: 16, fontWeight: '600' }}>Conversation</Text>
-          <View style={{ borderTopWidth: 1, borderColor: '#E5E7EB', padding: 12 }}>
+        <GlassCard>
+          <Text style={{ fontSize: 16, fontWeight: '600' }}>Conversation</Text>
+          <View style={{ marginTop: 8 }}>
             <View style={{ backgroundColor: '#E0F2FE', borderRadius: 12, padding: 12 }}>
               <Text style={{ fontWeight: '600', color: '#2563EB' }}>AI Interviewer</Text>
               <Text style={{ marginTop: 6, color: '#0F172A' }}>Hello! I am your AI interviewer. When you're ready, turn on your microphone and start speaking. {currentQuestion}</Text>
               {elapsed > 0 && <Text style={{ marginTop: 8, color: '#6B7280' }}>Recorded: {elapsed}s</Text>}
             </View>
           </View>
-        </View>
+        </GlassCard>
 
         <View style={{ marginTop: 12 }}>
           <TranscriptView />
@@ -106,5 +108,6 @@ export default function Session() {
         </View>
       </View>
     </Box>
+    </SafeAreaView>
   )
 }

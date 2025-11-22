@@ -1,10 +1,12 @@
 import { Box, Text, Button, ButtonText } from '@gluestack-ui/themed'
 import { ScrollView, View, Image } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { useState } from 'react'
 
 export default function Tips() {
   const [selectedIndex, setSelectedIndex] = useState(0)
   return (
+      <SafeAreaView style={{ flex: 1 }} edges={['top','bottom']}>
       <Box className='flex-1 bg-background'>
         <ScrollView className='px-4 pt-6'>
           <Text className='text-center text-xl font-bold'>Interview Tips & Resources</Text>
@@ -46,5 +48,6 @@ export default function Tips() {
           )}
         </ScrollView>
       </Box>
+      </SafeAreaView>
   )
 }

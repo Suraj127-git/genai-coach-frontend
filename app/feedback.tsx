@@ -1,10 +1,12 @@
 import { Box, Text, Button, ButtonText } from '@gluestack-ui/themed'
 import { useAppSelector } from '../store/hooks'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { Image, View } from 'react-native'
 
 export default function Feedback() {
   const { transcript } = useAppSelector(s => s.sessions)
   return (
+      <SafeAreaView style={{ flex: 1 }} edges={['top','bottom']}>
       <Box className='flex-1 px-4 pt-6 bg-background'>
         <Text className='text-center text-xl font-bold'>Interview Results</Text>
         <Text className='text-center mt-1 text-muted'>Here’s how you performed in your mock interview</Text>
@@ -48,5 +50,6 @@ export default function Feedback() {
           </Button>
         </View>
       </Box>
+      </SafeAreaView>
   )
 }
