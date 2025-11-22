@@ -1,5 +1,5 @@
 import { Box, Text, Button, ButtonText } from '@gluestack-ui/themed'
-import { useAppSelector } from '../store/hooks'
+import { useAppSelector } from '../../../store/hooks'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Image, View } from 'react-native'
 
@@ -12,7 +12,7 @@ export default function Feedback() {
         <Text className='text-center mt-1 text-muted'>Here’s how you performed in your mock interview</Text>
         <Box className='mt-4 rounded-xl bg-surface p-3'>
           <View className='items-center'>
-            <Image source={require('../assets/split_ai_scene_3.png')} className='w-full h-36' resizeMode='contain' />
+            <Image source={require('../../../assets/split_ai_scene_3.png')} className='w-full h-36' resizeMode='contain' />
             <Text className='text-lg font-semibold'>Overall Score</Text>
             <Text className='text-primary-600 text-base font-semibold'>85/100</Text>
             <Text className='text-muted'>Great performance!</Text>
@@ -21,14 +21,14 @@ export default function Feedback() {
         <View className='flex-row justify-between mt-3'>
           <Box className='w-[48%] rounded-xl bg-surface p-3'>
             <View className='items-center'>
-              <Image source={require('../assets/postive-feed.png')} className='w-14 h-14 mb-2' />
+              <Image source={require('../../../assets/postive-feed.png')} className='w-14 h-14 mb-2' />
               <Text className='text-base font-semibold'>Strengths</Text>
               <Text className='mt-1 text-center text-muted'>Technical Knowledge, Communication</Text>
             </View>
           </Box>
           <Box className='w-[48%] rounded-xl bg-surface p-3'>
             <View className='items-center'>
-              <Image source={require('../assets/negative-feed.png')} className='w-14 h-14 mb-2' />
+              <Image source={require('../../../assets/negative-feed.png')} className='w-14 h-14 mb-2' />
               <Text className='text-base font-semibold'>Areas to Improve</Text>
               <Text className='mt-1 text-center text-muted'>Response Time, Detail Level</Text>
             </View>
@@ -53,3 +53,4 @@ export default function Feedback() {
       </SafeAreaView>
   )
 }
+

@@ -12,7 +12,7 @@ export default function Tips() {
           <Text className='text-center text-xl font-bold'>Interview Tips & Resources</Text>
           <Text className='text-center mt-1 text-muted'>Expert advice to help you excel in your next interview</Text>
 
-          <Image source={require('../assets/split_ai_scene_2.png')} className='w-full h-36 mt-3' resizeMode='contain' />
+          <Image source={require('../../assets/split_ai_scene_2.png')} className='w-full h-36 mt-3' resizeMode='contain' />
 
           <View className='flex-row justify-between mt-3'>
             {['Technical', 'Behavioral', 'Preparation', 'General'].map((label, idx) => (
@@ -51,3 +51,4 @@ export default function Tips() {
       </SafeAreaView>
   )
 }
+

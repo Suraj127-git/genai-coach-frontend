@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { Box, Text, Button, ButtonText } from '@gluestack-ui/themed'
-import { Image, ScrollView, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { GradientHeader, GlassCard } from '../components/ui'
+import { GradientHeader, GlassCard } from '../../components/ui'
 import { useRouter } from 'expo-router'
-import { } from 'react-native'
 
 export default function Setup() {
   const router = useRouter()
@@ -19,7 +18,7 @@ export default function Setup() {
   const onStartVideo = () => {
     if (navigating) return
     setNavigating(true)
-    setTimeout(() => { router.replace('/video'); setNavigating(false) }, 0)
+    setTimeout(() => { router.replace('/session/video'); setNavigating(false) }, 0)
   }
 
   return (

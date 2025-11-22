@@ -9,10 +9,9 @@ import { NativeModulesProxy } from 'expo-modules-core'
 import { useEffect, useState } from 'react'
 import { GluestackUIProvider, Box, Text, Button, ButtonText, Spinner } from '@gluestack-ui/themed'
 import { config } from '@gluestack-ui/config'
-import { Linking } from 'react-native'
+import { Linking, LogBox } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import '../nativewind-interop'
-import { View } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 export default function Layout() {
@@ -31,6 +30,11 @@ export default function Layout() {
   }, [])
 
   useEffect(() => {
+    LogBox.ignoreLogs([
+      'Require cycle:',
+      'Non-serializable values were found in the navigation state',
+      'VirtualizedLists should never be nested',
+    ])
     const requestAll = async () => {
       try {
         const hasLoc = !!(NativeModulesProxy as any).ExpoLocation
@@ -119,11 +123,11 @@ export default function Layout() {
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 <Stack.Screen name="index" />
                 <Stack.Screen name="setup" />
-                <Stack.Screen name="video" />
                 <Stack.Screen name="(auth)/login" />
                 <Stack.Screen name="(auth)/register" />
-                <Stack.Screen name="session/index" />
-                <Stack.Screen name="feedback" />
+                <Stack.Screen name="session" />
+                <Stack.Screen name="session/feedback" />
+                <Stack.Screen name="session/video" />
                 <Stack.Screen name="tips" />
                 <Stack.Screen name="onboarding/one" options={{ headerShown: false }} />
                 <Stack.Screen name="onboarding/two" options={{ headerShown: false }} />

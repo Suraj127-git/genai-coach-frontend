@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Alert, Image, ScrollView, View } from 'react-native'
+import { Alert, Image, ScrollView, View, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Box, Text, Button, ButtonText } from '@gluestack-ui/themed'
 import { GradientHeader, GlassCard } from '../../components/ui'
@@ -11,6 +11,8 @@ import { useRouter } from 'expo-router'
 import useTranscriptionWS from '../../hooks/useTranscriptionWS'
 import useNetworkSync from '../../hooks/useNetworkSync'
 import TranscriptView from './TranscriptView'
+import { Ionicons } from '@expo/vector-icons'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function Session() {
   const dispatch = useAppDispatch()
@@ -18,6 +20,7 @@ export default function Session() {
   const { token } = useAppSelector(s => s.auth)
   const [permChecked, setPermChecked] = useState(false)
   const router = useRouter()
+  const insets = useSafeAreaInsets()
   const ws = useTranscriptionWS(token || undefined, (msg) => {
     if (msg?.type === 'transcript') dispatch(setTranscript(msg.text))
   })
@@ -63,6 +66,13 @@ export default function Session() {
   return (
     <SafeAreaView style={{ flex: 1 }} edges={['top','bottom']}>
     <Box style={{ flex: 1 }}>
+      <TouchableOpacity
+        onPress={() => router.replace('/(tabs)/interview')}
+        style={{ position: 'absolute', left: 12, top: Math.max(8, insets.top + 8), zIndex: 20, width: 40, height: 40, borderRadius: 20, backgroundColor: 'rgba(255,255,255,0.95)', alignItems: 'center', justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.08, shadowRadius: 10, elevation: 6 }}
+        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+      >
+        <Ionicons name="chevron-back" size={22} color="#0F172A" />
+      </TouchableOpacity>
       <GradientHeader height={160} />
       <View style={{ marginTop: -130, paddingHorizontal: 16 }}>
         <Text style={{ fontSize: 20, fontWeight: '700', textAlign: 'center' }}>Voice Interview</Text>
@@ -104,7 +114,7 @@ export default function Session() {
         <Text style={{ marginTop: 8, color: '#6B7280' }}>Tap the microphone to enable and start recording</Text>
         <View style={{ flexDirection: 'row', marginTop: 12 }}>
           <Button variant='outline' style={{ borderRadius: 24, marginRight: 8 }} onPress={onReset}><ButtonText>Reset</ButtonText></Button>
-          <Button variant='link' style={{ borderRadius: 24 }} onPress={() => router.push('/feedback')}><ButtonText>Feedback</ButtonText></Button>
+          <Button variant='link' style={{ borderRadius: 24 }} onPress={() => router.push('/session/feedback')}><ButtonText>Feedback</ButtonText></Button>
         </View>
       </View>
     </Box>
