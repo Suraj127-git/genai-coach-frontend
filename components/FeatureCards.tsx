@@ -30,7 +30,9 @@ export function FeatureCards() {
         <Animated.View style={{ width: '48%', marginBottom: 12, transform: [{ translateY: v1.interpolate({ inputRange: [0, 1], outputRange: [0, -6] }) }] }}>
           <GlassCard>
             <View className='items-center'>
-              <Image source={require('../assets/split_icon_1.png')} className='w-14 h-14 mb-2' />
+              <View className='w-14 h-14 mb-2 rounded-xl items-center justify-center bg-white'>
+                <Image source={require('../assets/split_icon_1.png')} className='w-10 h-10' />
+              </View>
               <Text className='text-center font-semibold'>AI-Powered Feedback</Text>
               <Text className='text-center mt-1 text-muted'>Get instant, personalized feedback.</Text>
             </View>
@@ -39,7 +41,9 @@ export function FeatureCards() {
         <Animated.View style={{ width: '48%', marginBottom: 12, transform: [{ translateY: v2.interpolate({ inputRange: [0, 1], outputRange: [0, -6] }) }] }}>
           <GlassCard>
             <View className='items-center'>
-              <Image source={require('../assets/split_icon_2.png')} className='w-14 h-14 mb-2' />
+              <View className='w-14 h-14 mb-2 rounded-xl items-center justify-center bg-white'>
+                <Image source={require('../assets/split_icon_2.png')} className='w-10 h-10' />
+              </View>
               <Text className='text-center font-semibold'>Realistic Scenarios</Text>
               <Text className='text-center mt-1 text-muted'>Practice with real questions.</Text>
             </View>
@@ -48,7 +52,9 @@ export function FeatureCards() {
         <Animated.View style={{ width: '48%', marginBottom: 12, transform: [{ translateY: v3.interpolate({ inputRange: [0, 1], outputRange: [0, -6] }) }] }}>
           <GlassCard>
             <View className='items-center'>
-              <Image source={require('../assets/split_icon_3.png')} className='w-14 h-14 mb-2' />
+              <View className='w-14 h-14 mb-2 rounded-xl items-center justify-center bg-white'>
+                <Image source={require('../assets/split_icon_3.png')} className='w-10 h-10' />
+              </View>
               <Text className='text-center font-semibold'>Track Progress</Text>
               <Text className='text-center mt-1 text-muted'>Monitor improvements over time.</Text>
             </View>
@@ -57,7 +63,9 @@ export function FeatureCards() {
         <Animated.View style={{ width: '48%', marginBottom: 12, transform: [{ translateY: v4.interpolate({ inputRange: [0, 1], outputRange: [0, -6] }) }] }}>
           <GlassCard>
             <View className='items-center'>
-              <Image source={require('../assets/split_icon_4.png')} className='w-14 h-14 mb-2' />
+              <View className='w-14 h-14 mb-2 rounded-xl items-center justify-center bg-white'>
+                <Image source={require('../assets/split_icon_4.png')} className='w-10 h-10' />
+              </View>
               <Text className='text-center font-semibold'>Interview Tips</Text>
               <Text className='text-center mt-1 text-muted'>Access expert strategies.</Text>
             </View>
@@ -67,4 +75,3 @@ export function FeatureCards() {
     </View>
   )
 }
-

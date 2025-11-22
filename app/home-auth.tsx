@@ -17,6 +17,7 @@ export default function HomeAuth() {
           subtitle='Master your interviews with AI-powered practice sessions'
           ctaLabel='Start Interview'
           height={220}
+          overlayOffset={140}
           onCtaPress={() => router.push('/(tabs)/interview')}
         />
 

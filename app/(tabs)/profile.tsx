@@ -1,5 +1,5 @@
 import { Box, Text, Button, ButtonText } from '@gluestack-ui/themed'
-import { View, Image, ScrollView, Alert } from 'react-native'
+import { View, Image, ScrollView, Alert, Switch } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { GradientHeader, GlassCard } from '../../components/ui'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
@@ -24,15 +24,17 @@ export default function Profile() {
     <Box className='flex-1 bg-background'>
       <ScrollView>
         <GradientHeader height={180} />
-        <View className='px-4' style={{ marginTop: -150 }}>
+          <View className='px-4' style={{ marginTop: -120 }}>
           <Text className='text-center text-2xl font-bold'>Your Profile</Text>
           <Text className='text-center mt-1 text-muted'>Manage your account settings and preferences</Text>
-        </View>
+          </View>
 
         <View className='px-4 pt-6'>
           <GlassCard>
             <View className='items-center'>
-              <Image source={require('../../assets/icon.png')} className='w-16 h-16' />
+              <View className='w-16 h-16 rounded-2xl items-center justify-center bg-white'>
+                <Image source={require('../../assets/icon.png')} className='w-12 h-12' />
+              </View>
               <Text className='mt-2 font-semibold'>{user?.name || 'User'}</Text>
               <Text className='text-muted'>{user?.email || ''}</Text>
               <Button className='mt-3 rounded-full' onPress={() => setShowEdit(!showEdit)}><ButtonText>{showEdit ? 'Cancel' : 'Edit Profile'}</ButtonText></Button>

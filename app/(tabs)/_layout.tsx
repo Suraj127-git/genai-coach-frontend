@@ -1,12 +1,22 @@
 import { Tabs } from 'expo-router'
-import { View, TouchableOpacity, Dimensions } from 'react-native'
+import { View, TouchableOpacity, Dimensions, Animated, Easing } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useEffect, useRef } from 'react'
 
 function MyTabBar({ state, descriptors, navigation }: any) {
   const insets = useSafeAreaInsets()
   const { width } = Dimensions.get('window')
   const iconSize = Math.max(22, Math.min(28, Math.round(width / 16)))
+  const routesLen = state.routes.length
+  const barW = width - 24
+  const tabW = barW / routesLen
+  const pillW = Math.max(56, Math.min(72, tabW - 24))
+  const baseOffset = (tabW - pillW) / 2
+  const x = useRef(new Animated.Value(state.index)).current
+  useEffect(() => {
+    Animated.timing(x, { toValue: state.index, duration: 240, easing: Easing.out(Easing.quad), useNativeDriver: true }).start()
+  }, [state.index])
   return (
     <View
       style={{
@@ -24,6 +34,28 @@ function MyTabBar({ state, descriptors, navigation }: any) {
         elevation: 8,
       }}
     >
+      <Animated.View
+        pointerEvents='none'
+        style={{
+          position: 'absolute',
+          top: 12,
+          height: 40,
+          width: pillW,
+          borderRadius: 20,
+          backgroundColor: 'rgba(224,242,254,0.9)',
+          borderWidth: 1,
+          borderColor: '#E0F2FE',
+          shadowColor: '#000',
+          shadowOpacity: 0.06,
+          shadowRadius: 8,
+          elevation: 4,
+          transform: [
+            {
+              translateX: x.interpolate({ inputRange: [0, routesLen - 1], outputRange: [baseOffset, baseOffset + tabW * (routesLen - 1)] }),
+            },
+          ],
+        }}
+      />
       {state.routes.map((route: any, index: number) => {
         const focused = state.index === index
         const onPress = () => {
@@ -50,7 +82,7 @@ function MyTabBar({ state, descriptors, navigation }: any) {
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
             hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
           >
-            <View style={{ backgroundColor: focused ? '#E0F2FE' : 'transparent', borderRadius: 16, padding: 8 }}>
+            <View style={{ borderRadius: 16, padding: 8 }}>
               <Ionicons name={iconName as any} size={iconSize} color={color} />
             </View>
           </TouchableOpacity>

@@ -20,7 +20,7 @@ export default function Home() {
     const go = async () => {
       try {
         const seen = await AsyncStorage.getItem('onboarding_seen')
-        if (seen !== 'true') {
+        if (seen === 'true') {
           router.replace('/onboarding/one')
           return
         }
@@ -76,9 +76,9 @@ export default function Home() {
             subtitle='Master your interviews with AI-powered practice sessions'
             ctaLabel='Start Interview'
             height={220}
+            overlayOffset={140}
             onCtaPress={() => { try { setTimeout(() => router.push('/(tabs)/interview'), 0) } catch {} }}
           />
-
           <View className='px-4 pt-6'>
             <FeatureCards />
           </View>

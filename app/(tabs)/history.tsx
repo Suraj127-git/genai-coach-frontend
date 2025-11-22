@@ -15,7 +15,7 @@ export default function History() {
       <Box className='flex-1 bg-background'>
         <ScrollView>
           <GradientHeader height={160} />
-          <View className='px-4' style={{ marginTop: -130 }}>
+          <View className='px-4' style={{ marginTop: -100 }}>
             <Text className='text-center text-xl font-bold'>Interview History</Text>
             <Text className='text-center mt-1 text-muted'>Review your past interviews and track your progress</Text>
           </View>
@@ -45,7 +45,9 @@ export default function History() {
           {items.map((it, idx) => (
             <GlassCard key={idx} style={{ marginTop: 12 }}>
               <View className='flex-row items-center'>
-                <Image source={require('../../assets/split_icon_3.png')} className='w-10 h-10 mr-3' />
+                <View className='w-10 h-10 mr-3 rounded-lg items-center justify-center bg-white'>
+                  <Image source={require('../../assets/split_icon_3.png')} className='w-8 h-8' />
+                </View>
                 <View className='flex-1'>
                   <Text className='font-semibold'>{it.title}</Text>
                   <Text className='text-muted'>{it.date} • {it.duration}</Text>

@@ -1,4 +1,4 @@
-import '../global.css'  // First import
+import '../global.css'
 import { Stack, useRouter } from 'expo-router'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -9,7 +9,7 @@ import { NativeModulesProxy } from 'expo-modules-core'
 import { useEffect, useState } from 'react'
 import { GluestackUIProvider, Box, Text, Button, ButtonText, Spinner } from '@gluestack-ui/themed'
 import { config } from '@gluestack-ui/config'
-import { Linking, LogBox } from 'react-native'
+import { Linking, View } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import '../nativewind-interop'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -30,11 +30,6 @@ export default function Layout() {
   }, [])
 
   useEffect(() => {
-    LogBox.ignoreLogs([
-      'Require cycle:',
-      'Non-serializable values were found in the navigation state',
-      'VirtualizedLists should never be nested',
-    ])
     const requestAll = async () => {
       try {
         const hasLoc = !!(NativeModulesProxy as any).ExpoLocation
@@ -76,6 +71,7 @@ export default function Layout() {
         <GluestackUIProvider config={config}>
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
+            <View className='flex-1'>
             {!online ? (
               <Box className='flex-1 items-center justify-center p-4 bg-background'>
                 <Text className='text-lg font-semibold'>No Internet Connection</Text>
@@ -136,6 +132,7 @@ export default function Layout() {
                 <Stack.Screen name="onboarding/five" options={{ headerShown: false }} />
               </Stack>
             )}
+            </View>
             </PersistGate>
           </Provider>
         </GluestackUIProvider>

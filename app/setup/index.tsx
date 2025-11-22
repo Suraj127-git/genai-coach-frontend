@@ -26,7 +26,7 @@ export default function Setup() {
       <Box className='flex-1 bg-background'>
         <ScrollView contentContainerStyle={{ paddingBottom: 24 }}>
           <GradientHeader height={180} />
-          <View className='px-4' style={{ marginTop: -150 }}>
+          <View className='px-4' style={{ marginTop: -120 }}>
             <Text className='text-center text-2xl font-bold'>Setup Your Interview</Text>
             <Text className='text-center mt-1 text-muted'>Choose your interview type and difficulty level</Text>
           </View>
