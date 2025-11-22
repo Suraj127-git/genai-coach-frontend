@@ -19,7 +19,7 @@ export default function Home() {
     const go = async () => {
       try {
         const seen = await AsyncStorage.getItem('onboarding_seen')
-        if (seen !== 'true') {
+        if (seen == 'true') {
           router.replace('/onboarding/one')
           return
         }
@@ -29,6 +29,14 @@ export default function Home() {
     }
     go()
   }, [])
+
+  useEffect(() => {
+    if (!checking && !user) {
+      try {
+        router.replace('/(auth)/login')
+      } catch {}
+    }
+  }, [checking, user])
 
   if (checking) {
     return (
@@ -43,19 +51,8 @@ export default function Home() {
   if (!user) {
     return (
       <SafeAreaView style={{ flex: 1 }} edges={['top','bottom']}>
-      <Box className='flex-1 bg-background'>
-          <ScrollView className='px-4 pt-8' contentContainerStyle={{ alignItems: 'center' }}>
-            <Image source={require('../assets/app-img-1.png')} resizeMode='cover' className='w-full h-60 mt-3 mb-5 rounded-xl' />
-            <Box className='w-full rounded-xl p-4 bg-surface'>
-              <Text className='mb-3 text-center text-xl font-semibold'>AI Mock Interview Coach</Text>
-              <Link href="/(auth)/login" asChild>
-                <Button className='rounded-2xl'><ButtonText>Login</ButtonText></Button>
-              </Link>
-              <Link href="/(auth)/register" asChild>
-                <Button className='rounded-2xl mt-2' variant='outline'><ButtonText>Register</ButtonText></Button>
-              </Link>
-            </Box>
-          </ScrollView>
+        <Box className='flex-1 items-center justify-center bg-background'>
+          <Spinner size='large' />
         </Box>
       </SafeAreaView>
     )

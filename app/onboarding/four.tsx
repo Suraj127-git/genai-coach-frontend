@@ -7,17 +7,17 @@ export default function OnboardingFour() {
   const router = useRouter()
   const insets = useSafeAreaInsets()
   const win = Dimensions.get('window')
-  const imgH = Math.max(180, Math.min(240, Math.round(win.height * 0.28)))
+  const imgH = Math.max(250, Math.min(200, Math.round(Math.min(win.width, win.height) * 0.45)))
   return (
       <SafeAreaView style={{ flex: 1 }} edges={['top','bottom']}>
       <Box className='flex-1 bg-background'>
-        <ScrollView contentContainerStyle={{ alignItems: 'center' }} className='px-6 pt-8 pb-8'>
-          <Image source={require('../../assets/split_ai_scene_2.png')} resizeMode='contain' style={{ height: imgH }} className='w-full mt-2' />
-          <View className='mt-4'>
-            <Text className='text-center text-xl font-bold'>Track Progress</Text>
+        <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center' }} className='px-6 pt-8 pb-8'>
+          <View style={{ width: imgH, height: imgH, borderRadius: imgH/2, overflow: 'hidden' }} className='bg-surface items-center justify-center shadow'>
+            <Image source={require('../../assets/split_ai_scene_2.png')} resizeMode='cover' style={{ width: '80%', height: '80%' }} />
           </View>
-          <View className='mt-2'>
-            <Text className='text-center text-muted'>Review past sessions and see improvements over time.</Text>
+          <View className='mt-5 px-3'>
+            <Text className='text-center text-2xl font-bold'>Track Your Progress</Text>
+            <Text className='text-center mt-2 text-muted text-base'>Review sessions, monitor improvements, and focus on key skills.</Text>
           </View>
         </ScrollView>
         <View style={{ position: 'absolute', right: 24, bottom: Math.max(24, insets.bottom + 12) }}>

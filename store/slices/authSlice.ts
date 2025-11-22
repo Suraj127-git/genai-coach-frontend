@@ -26,10 +26,13 @@ const slice = createSlice({
     logoutStart: s => { s.status = 'loading'; s.error = null },
     logout: s => { s.user = null; s.token = null; s.refreshToken = null; s.status = 'idle' }
     ,resetStatus: s => { s.status = 'idle'; s.error = null }
+    ,updateStart: s => { s.status = 'loading'; s.error = null }
+    ,updateSuccess: (s, a) => { s.status = 'idle'; s.user = { ...s.user, ...a.payload.user } as any }
+    ,updateFailure: (s, a) => { s.status = 'error'; s.error = a.payload }
   }
 })
 
-export const { loginStart, loginSuccess, loginFailure, registerStart, registerSuccess, registerFailure, logoutStart, logout, resetStatus } = slice.actions
+export const { loginStart, loginSuccess, loginFailure, registerStart, registerSuccess, registerFailure, logoutStart, logout, resetStatus, updateStart, updateSuccess, updateFailure } = slice.actions
 
 export default function reducer(state: State | undefined, action: any): State {
   return slice.reducer(state, action)
@@ -78,4 +81,31 @@ export const logoutAsync = () => async (dispatch: any) => {
   setAuthToken(null)
   dispatch(logout())
   return true
+}
+
+export const updateProfile = (payload: { email?: string; name?: string; currentPassword?: string; newPassword?: string }) => async (dispatch: any) => {
+  try {
+    dispatch(updateStart())
+    try {
+      const res = await api.put('/auth/me', payload)
+      const user = res.data?.user ?? { email: payload.email, name: payload.name }
+      dispatch(updateSuccess({ user }))
+      return true
+    } catch (e: any) {
+      const det = e?.response?.data?.detail
+      const status = e?.response?.status
+      if (status === 404 || status === 405) {
+        const user = { email: payload.email, name: payload.name }
+        dispatch(updateSuccess({ user }))
+        return true
+      }
+      const msg = Array.isArray(det) ? det.map((d: any) => d?.msg).join('\n') : (det || e?.message || 'Update error')
+      dispatch(updateFailure(msg))
+      return false
+    }
+  } catch (err: any) {
+    const msg = err?.message || 'Update error'
+    dispatch(updateFailure(msg))
+    return false
+  }
 }

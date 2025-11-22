@@ -27,7 +27,7 @@ export default function Login() {
       <SafeAreaView style={{ flex: 1 }} edges={['top','bottom']}>
       <Box className='flex-1 bg-background'>
         <ScrollView>
-          <GradientHeader height={200} />
+          <GradientHeader height={350} />
           <View className='px-4' style={{ marginTop: -160 }}>
             <Text className='text-center text-2xl font-bold'>Welcome Back</Text>
             <Text className='text-center mt-1 text-muted'>Sign in to continue</Text>
@@ -43,6 +43,11 @@ export default function Login() {
             </Input>
             <Button className='rounded-full' disabled={status === 'loading'} onPress={onSubmit}><ButtonText>{status === 'loading' ? 'Loading...' : 'Login'}</ButtonText></Button>
             </GlassCard>
+            <View className='items-center mt-3'>
+              <Button variant='link' onPress={() => router.push('/(auth)/register')}>
+                <ButtonText className='text-primary-600'>New here? Register</ButtonText>
+              </Button>
+            </View>
           </View>
         </ScrollView>
       </Box>

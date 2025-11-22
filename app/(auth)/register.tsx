@@ -45,7 +45,7 @@ export default function Register() {
       <SafeAreaView style={{ flex: 1 }} edges={['top','bottom']}>
       <Box className='flex-1 bg-background'>
         <ScrollView>
-          <GradientHeader height={200} />
+          <GradientHeader height={350} />
           <View className='px-4' style={{ marginTop: -160 }}>
             <Text className='text-center text-2xl font-bold'>Create an account</Text>
             <Text className='text-center mt-1 text-muted'>Join and start practicing</Text>
@@ -64,6 +64,11 @@ export default function Register() {
             </Input>
             <Button className='rounded-full' disabled={status === 'loading'} onPress={onSubmit}><ButtonText>{status === 'loading' ? 'Loading...' : 'Sign up'}</ButtonText></Button>
             </GlassCard>
+            <View className='items-center mt-3'>
+              <Button variant='link' onPress={() => router.push('/(auth)/login')}>
+                <ButtonText className='text-primary-600'>Already have an account? Login</ButtonText>
+              </Button>
+            </View>
           </View>
         </ScrollView>
       </Box>

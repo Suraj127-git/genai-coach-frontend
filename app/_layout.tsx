@@ -111,19 +111,20 @@ export default function Layout() {
               </Box>
             ) : (
               <Stack screenOptions={{
+                headerShown: false,
                 headerTintColor: '#0F172A',
                 headerTitleStyle: { color: '#0F172A' },
                 headerStyle: { backgroundColor: '#E0F2FE' },
               }}>
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="index" options={{ title: 'Home' }} />
-                <Stack.Screen name="setup" options={{ title: 'Setup', headerBackTitle: 'Back' }} />
-                <Stack.Screen name="video" options={{ title: 'Video Call', headerBackTitle: 'Back' }} />
-                <Stack.Screen name="(auth)/login" options={{ title: 'Login', headerBackTitle: 'Back' }} />
-                <Stack.Screen name="(auth)/register" options={{ title: 'Register', headerBackTitle: 'Back' }} />
-                <Stack.Screen name="session/index" options={{ title: 'Session' }} />
-                <Stack.Screen name="feedback" options={{ title: 'Feedback' }} />
-                <Stack.Screen name="tips" options={{ title: 'Tips' }} />
+                <Stack.Screen name="index" />
+                <Stack.Screen name="setup" />
+                <Stack.Screen name="video" />
+                <Stack.Screen name="(auth)/login" />
+                <Stack.Screen name="(auth)/register" />
+                <Stack.Screen name="session/index" />
+                <Stack.Screen name="feedback" />
+                <Stack.Screen name="tips" />
                 <Stack.Screen name="onboarding/one" options={{ headerShown: false }} />
                 <Stack.Screen name="onboarding/two" options={{ headerShown: false }} />
                 <Stack.Screen name="onboarding/three" options={{ headerShown: false }} />
