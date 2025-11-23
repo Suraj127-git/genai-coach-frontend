@@ -32,23 +32,22 @@ export default function Layout() {
   useEffect(() => {
     const requestAll = async () => {
       try {
-        const hasLoc = !!(NativeModulesProxy as any).ExpoLocation
-        const hasMed = !!(NativeModulesProxy as any).ExpoMediaLibrary
-        if (!hasLoc || !hasMed) {
-          setPermReady(false)
-          setPermMsg('Native permission modules are missing. Rebuild the dev client or use Expo Go.')
-          return
+        let medStatus: string | undefined = undefined
+        try {
+          const MediaLibrary = await import('expo-media-library')
+          const { status } = await MediaLibrary.requestPermissionsAsync()
+          medStatus = status
+          console.log('[Permissions] MediaLibrary requested', { mediaLibrary: status })
+        } catch (e) {
+          console.log('[Permissions] MediaLibrary not available', e)
         }
-        const Location = await import('expo-location')
-        const MediaLibrary = await import('expo-media-library')
-        const { status: loc } = await Location.requestForegroundPermissionsAsync()
-        const { status: med } = await MediaLibrary.requestPermissionsAsync()
-        const ok = loc === 'granted' && med === 'granted'
+        const ok = medStatus === 'granted' || medStatus === undefined
         setPermReady(ok)
-        setPermMsg(ok ? null : 'Permissions not granted. Please allow access or open settings.')
-      } catch {
-        setPermReady(false)
-        setPermMsg('Permission request failed. Try again or rebuild the client.')
+        setPermMsg(ok ? null : 'Media library permission not granted. You can still continue.')
+      } catch (e) {
+        console.log('[Permissions] Request failed', e)
+        setPermReady(true)
+        setPermMsg(null)
       }
     }
     requestAll()
@@ -85,7 +84,7 @@ export default function Layout() {
             ) : !permReady && !allowContinue ? (
               <Box className='flex-1 items-center justify-center p-4 bg-background'>
                 <Text className='text-lg font-semibold'>Permissions Required</Text>
-                <Text className='text-muted'>Location and media library access are required.</Text>
+                <Text className='text-muted'>Media library access enables saving recordings to gallery.</Text>
                 {Constants.appOwnership === 'expo' ? null : (
                   <Text className='text-muted mt-1'>If permissions fail, rebuild the development client to include native modules.</Text>
                 )}
@@ -93,17 +92,19 @@ export default function Layout() {
                 <Button disabled={requesting} className='mt-3 rounded-2xl' onPress={async () => {
                   try {
                     setRequesting(true)
-                    const hasLoc = !!(NativeModulesProxy as any).ExpoLocation
-                    const hasMed = !!(NativeModulesProxy as any).ExpoMediaLibrary
-                    if (!hasLoc || !hasMed) { setPermReady(false); setPermMsg('Native modules missing. Rebuild dev client or use Expo Go.'); setRequesting(false); return }
-                    const Location = await import('expo-location')
-                    const MediaLibrary = await import('expo-media-library')
-                    const { status: loc } = await Location.requestForegroundPermissionsAsync()
-                    const { status: med } = await MediaLibrary.requestPermissionsAsync()
-                    const ok = loc === 'granted' && med === 'granted'
+                    let medStatus: string | undefined = undefined
+                    try {
+                      const MediaLibrary = await import('expo-media-library')
+                      const { status } = await MediaLibrary.requestPermissionsAsync()
+                      medStatus = status
+                      console.log('[Permissions] Retry MediaLibrary requested', { mediaLibrary: status })
+                    } catch (e) {
+                      console.log('[Permissions] Retry MediaLibrary not available', e)
+                    }
+                    const ok = medStatus === 'granted' || medStatus === undefined
                     setPermReady(ok)
                     setPermMsg(ok ? null : 'Permissions not granted. You can open system settings to allow access.')
-                  } catch {}
+                  } catch (e) { console.log('[Permissions] Retry failed', e) }
                   finally { setRequesting(false) }
                 }}><ButtonText>{requesting ? 'Requesting…' : 'Grant Permissions'}</ButtonText></Button>
                 <Button className='mt-2 rounded-2xl' variant='outline' onPress={() => Linking.openSettings()}><ButtonText>Open Settings</ButtonText></Button>
